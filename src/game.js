@@ -16,6 +16,7 @@ class Game {
     this.round = new Round(this.c, this.score, this.roundCount, this.mouse);
   }
   gameOver() {
+    
   }
 
 }

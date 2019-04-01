@@ -18,9 +18,9 @@ class Round {
   }
 
   draw() {
-    this.c.fillText(`Round: ${this.roundCount}`, 200, 280);
-    this.c.fillText(`Shot Count: ${this.shotCount}`, 200, 300);
-    this.c.fillText(`Ducks Left: ${this.duckCount}`, 200, 320);
+    this.c.fillText(`Round: ${this.roundCount}`, 240, 50);
+    this.c.fillText(`Shot Count: ${this.shotCount}`, 50, 440);
+    this.c.fillText(`Ducks Left: ${this.duckCount}`, 380, 440);
   }
 
   resetRound() {
