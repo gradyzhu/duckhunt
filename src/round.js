@@ -1,16 +1,18 @@
-import Shot from "./shot";
-import Duck from "./duck";
-import Mouse from "./mouse";
+const Shot = require("./shot.js");
+const Duck = require("./duck.js");
+const Mouse = require("./mouse.js");
 
 class Round {
 
-  constructor(gameScore, gameRound) {
+  constructor(score, roundCount, mouse) {
     this.shotCount = 3;
     this.duckCount = 3;
-    this.gameScore = gameScore;
-    this.gameRound = gameRound;
+    this.roundCount = roundCount;
     this.duckPosition = [0, 0];
+
     this.roundOver = false;
+    this.mouse = mouse;
+    this.mousePosition = [this.mouse.posX, this.mouse.posY];
   }
 
   resetRound() {

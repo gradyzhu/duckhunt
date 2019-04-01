@@ -1,12 +1,16 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 import './style.css';
+const Game = require("./game.js");
 
-function component() {
-  let element = document.createElement('div');
 
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  return element;
-}
+document.addEventListener("DOMContentLoaded", (event) => {
+  var canvas = document.getElementById('canvas');
+  var c = canvas.getContext('2d');
 
-document.body.appendChild(component());
+  let game = new Game(c);
+  let round = game.round;
+  // console.log(round.mousePosition);
+  c.strokeStyle= "#000000";
+});
+
+console.log("webpack is working!");
