@@ -3,12 +3,13 @@ const Duck = require("./duck.js");
 const Mouse = require("./mouse.js");
 
 class Round {
-
-  constructor(c, score, roundCount, mouse) {
-    this.c = c;
+  constructor(gc, score, roundCount, mouse) {
+    this.gc = gc;
     this.shotCount = 3;
+
+    this.score = score;
     this.roundCount = roundCount;
-    this.duckCount = 10;
+    this.ducksLeft = 10;
     this.duckPosition = [0, 0];
 
     this.roundOver = false;
@@ -17,10 +18,16 @@ class Round {
     this.draw();
   }
 
+  playRound() {
+    this.gc.canvas.addEventListener("click", console.log("click"));
+  }
+
   draw() {
-    this.c.fillText(`Round: ${this.roundCount}`, 240, 50);
-    this.c.fillText(`Shot Count: ${this.shotCount}`, 50, 440);
-    this.c.fillText(`Ducks Left: ${this.duckCount}`, 380, 440);
+    this.gc.font = "20px Pixel Emulator";
+    this.gc.fillStyle = "white";
+    this.gc.fillText(`ROUND: ${this.roundCount}`, 200, 50);
+    this.gc.fillText(`${this.shotCount}`, 50, 430);
+    this.gc.fillText(`${this.ducksLeft}`, 180, 430);
   }
 
   resetRound() {
@@ -33,7 +40,7 @@ class Round {
   hit() {
     // if mouse on-click matches duck position
     this.shotCount--;
-    this.gameScore += 1000;
+    this.score += 1000;
   }
 
   miss() {
@@ -41,10 +48,9 @@ class Round {
     // if mouse on-click misses duck position
   }
 
-  roundOver() {
-    if (this.shotCount === 0 || this.duckCount === 0) {
+  over() {
+    if (this.shotCount === 0 || this.ducksLeft === 0) {
       this.roundOver = true;
-      this.gameRound++;
     }
   }
 

@@ -1,10 +1,8 @@
 class Score {
-  constructor(c) {
-    this.c = c;
+  constructor(gc) {
+    this.gc = gc;
     this.points = 0;
   }
-
-
 }
 
 module.exports = Score;
