@@ -4,15 +4,23 @@ const Mouse = require("./mouse.js");
 
 class Round {
 
-  constructor(score, roundCount, mouse) {
+  constructor(c, score, roundCount, mouse) {
+    this.c = c;
     this.shotCount = 3;
-    this.duckCount = 3;
     this.roundCount = roundCount;
+    this.duckCount = 10;
     this.duckPosition = [0, 0];
 
     this.roundOver = false;
     this.mouse = mouse;
     this.mousePosition = [this.mouse.posX, this.mouse.posY];
+    this.draw();
+  }
+
+  draw() {
+    this.c.fillText(`Round: ${this.roundCount}`, 200, 280);
+    this.c.fillText(`Shot Count: ${this.shotCount}`, 200, 300);
+    this.c.fillText(`Ducks Left: ${this.duckCount}`, 200, 320);
   }
 
   resetRound() {
@@ -25,7 +33,6 @@ class Round {
   hit() {
     // if mouse on-click matches duck position
     this.shotCount--;
-    this.duckCount--;
     this.gameScore += 1000;
   }
 

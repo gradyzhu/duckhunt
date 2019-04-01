@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   var c = canvas.getContext('2d');
 
   let game = new Game(c);
-  let round = game.round;
+  game.newRound();
   // console.log(round.mousePosition);
   c.strokeStyle= "#000000";
 });

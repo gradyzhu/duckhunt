@@ -5,15 +5,15 @@ const Mouse = require("./mouse.js");
 class Game {
   constructor(c) {
     this.c = c;
-    this.score = new Score();
     this.roundCount = 0;
+    this.score = new Score(this.c);
     this.mouse = new Mouse(this.c);
 
     this.round = null;
   }
 
   newRound() {
-    this.round = Round(this.score, this.roundCount, this.mouse);
+    this.round = new Round(this.c, this.score, this.roundCount, this.mouse);
   }
   gameOver() {
   }

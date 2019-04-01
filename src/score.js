@@ -1,6 +1,7 @@
 class Score {
-  constructor() {
-
+  constructor(c) {
+    this.c = c;
+    this.points = 0;
   }
 
 
