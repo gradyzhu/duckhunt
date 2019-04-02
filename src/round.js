@@ -18,10 +18,6 @@ class Round {
     this.draw();
   }
 
-  playRound() {
-    this.gc.canvas.addEventListener("click", console.log("click"));
-  }
-
   draw() {
     this.gc.font = "20px Pixel Emulator";
     this.gc.fillStyle = "white";
@@ -36,7 +32,7 @@ class Round {
       this.roundOver = false;
     }
   }
-
+  
   hit() {
     // if mouse on-click matches duck position
     this.shotCount--;

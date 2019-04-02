@@ -1,9 +1,14 @@
-#canvas-static, #canvas-dynamic, #canvas-game {
+#canvas-static, #canvas-dynamic, #canvas-game, #canvas-cursor {
   position: absolute;
+  cursor: none;
+}
+
+#canvas-cursor {
+  background-color: transparent;
+  z-index: 3;
 }
 
 #canvas-dynamic {
-  outline: black 1px solid;
   background-color: #66BCF9;
   z-index: 0;
 }

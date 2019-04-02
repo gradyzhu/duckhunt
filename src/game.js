@@ -4,14 +4,15 @@ const Cross = require("./cross.js");
 const Duck = require("./duck.js");
 
 class Game {
-  constructor(sc, dc, gc) {
+  constructor(cc, sc, dc, gc) {
+    this.cc = cc;
     this.sc = sc;
     this.dc = dc;
     this.gc = gc;
 
     this.roundCount = 0;
     this.score = new Score(this.gc);
-    this.cross = new Cross(this.dc);
+    this.cross = new Cross(this.cc);
     this.duck = new Duck(this.dc);
 
     this.round = new Round(
