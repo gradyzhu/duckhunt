@@ -1,26 +1,6 @@
-#canvas-static, #canvas-dynamic, #canvas-game, #canvas-cursor {
-  position: absolute;
-  cursor: none;
-}
-
-#canvas-cursor {
-  background-color: transparent;
-  z-index: 3;
-}
-
-#canvas-dynamic {
+#canvas {
   background-color: #66BCF9;
-  z-index: 0;
-}
-
-#canvas-static {
-  background-image: url('https://s3-us-west-1.amazonaws.com/smilr-seed/duckhunt-static-1.png');
   outline: black 1px solid;
+  cursor: none;
   z-index: 1;
-}
-
-#canvas-game {
-  background-color: transparent;
-  outline: black 1px solid;
-  z-index: 2;
 }

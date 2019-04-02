@@ -1,12 +1,12 @@
 class Cross {
-  constructor(cc) {
-    this.cc = cc;
+  constructor(c) {
+    this.c = c;
     this.posX = 0;
     this.posY = 0;
     this.click = false;
-    // this.draw();
+
     window.addEventListener('mousemove', event => {
-      var bounds = this.cc.canvas.getBoundingClientRect();
+      var bounds = this.c.canvas.getBoundingClientRect();
       this.posX = event.clientX - bounds.left;
       this.posY = event.clientY - bounds.top;
       this.update();
@@ -20,20 +20,20 @@ class Cross {
   }
 
 
-  draw() {
-    this.cc.beginPath();
-    this.cc.arc(this.posX, this.posY, 20, 0, 2 * Math.PI);
-    this.cc.stroke();
-    this.cc.strokeStyle = "red";
-    this.cc.beginPath();
-    this.cc.arc(this.posX, this.posY, 2, 0, 2 * Math.PI);
-    this.cc.fill();
-    this.cc.fillStyle = "red";
+  render() {
+    this.c.beginPath();
+    this.c.arc(this.posX, this.posY, 20, 0, 2 * Math.PI);
+    this.c.stroke();
+    this.c.strokeStyle = "red";
+    this.c.beginPath();
+    this.c.arc(this.posX, this.posY, 2, 0, 2 * Math.PI);
+    this.c.fill();
+    this.c.fillStyle = "red";
   }
 
   update() {
-    this.cc.clearRect(0, 0, this.cc.canvas.width, this.cc.canvas.height);
-    this.draw();
+    this.c.clearRect(0, 0, this.c.canvas.width, this.c.canvas.height);
+    // this.render();
   }
 
   // update() {
