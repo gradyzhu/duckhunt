@@ -1,9 +1,9 @@
 const Shot = require("./shot.js");
 const Duck = require("./duck.js");
-const Mouse = require("./mouse.js");
+const Cross = require("./cross.js");
 
 class Round {
-  constructor(gc, score, roundCount, mouse) {
+  constructor(gc, score, roundCount, cross) {
     this.gc = gc;
     this.shotCount = 3;
 
@@ -13,8 +13,8 @@ class Round {
     this.duckPosition = [0, 0];
 
     this.roundOver = false;
-    this.mouse = mouse;
-    this.mousePosition = [this.mouse.posX, this.mouse.posY];
+    this.cross = cross;
+    this.crossPos = [this.cross.posX, this.cross.posY];
     this.draw();
   }
 

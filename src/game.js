@@ -1,6 +1,6 @@
 const Score = require("./score.js");
 const Round = require("./round.js"); 
-const Mouse = require("./mouse.js");
+const Cross = require("./cross.js");
 const Duck = require("./duck.js");
 
 class Game {
@@ -8,17 +8,17 @@ class Game {
     this.sc = sc;
     this.dc = dc;
     this.gc = gc;
-    
+
     this.roundCount = 0;
     this.score = new Score(this.gc);
-    this.mouse = new Mouse(this.dc);
+    this.cross = new Cross(this.dc);
     this.duck = new Duck(this.dc);
 
     this.round = new Round(
       this.gc, 
       this.score, 
       this.roundCount, 
-      this.mouse);
+      this.cross);
     
   }
 
@@ -30,7 +30,7 @@ class Game {
   }
 
   newRound() {
-    this.round = new Round(this.gc, this.score, this.roundCount, this.mouse);
+    this.round = new Round(this.gc, this.score, this.roundCount, this.cross);
   }
 
   gameOver() {

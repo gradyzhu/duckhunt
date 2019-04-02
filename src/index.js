@@ -12,6 +12,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
   var dc = dCanvas.getContext('2d');
   var gc = gCanvas.getContext('2d');
 
+  // dc.canvas.addEventListener('mousemove', event => {
+
+  // });
+
   let game = new Game(sc, dc, gc);
   game.newRound();
   // console.log(round.mousePosition);
