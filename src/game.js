@@ -12,7 +12,7 @@ class Game {
     this.roundCount = 0;
     this.score = new Score(this.c);
     this.cross = new Cross(this.c);
-    this.duck = new Duck(this.c);
+    this.duck = new Duck(this.c, this.cross);
     this.environment = new Environment(this.c);
     this.round = null;
     
@@ -38,16 +38,16 @@ class Game {
     this.cross.render();
   }
 
-  start() {
-    while (!this.gameOver) {
-      this.newRound();
-      this.round.play();
-    }
-  }
+  // start() {
+  //   while (!this.gameOver) {
+  //     this.newRound();
+  //     this.round.play();
+  //   }
+  // }
 
-  restart() {
-    console.log('restart');
-  }
+  // restart() {
+  //   console.log('restart');
+  // }
 
   newRound() {
     this.round = new Round(this.c, this.score, this.roundCount, this.cross);

@@ -1,10 +1,12 @@
 class Duck {
-  constructor(c) {
+  constructor(c, cross) {
     this.c = c;
+    this.cross = cross;
     this.posX = 200;
     this.posY = 200;
-    this.velX = 3;
-    this.velY = 3;
+    this.velX = 2;
+    this.velY = 2;
+
     this.frameIndex = 0;
     this.tickCount = 0;
     this.ticksPerFrame = 4;
@@ -15,53 +17,58 @@ class Duck {
       this.imageReady = true;
     };
     this.image.src = "";
+
     this.direction = this.changeDir();
-    // window.draw = this.render.bind(this);
   }
 
   render() {
     if (!this.imageReady) return;
-    this.c.drawImage(
-      this.image, 
-      this.frameIndex * 120 / 3, 
-      0, 
-      40, 
-      40, 
-      this.posX, 
-      this.posY, 
-      70, 
-      70);
-    // this.c.drawImage(img, sx, sy, swidth, sheight, dx, dy, dwidth, dheight);
-    // window.draw = this.render.bind(this);
+    this.c.drawImage(this.image, 
+      this.frameIndex * 120 / 3, 0, 
+      40, 40, 
+      this.posX, this.posY, 
+      70, 70
+    );
   }
 
   update() {
+    // change direction after 10 counts
     this.dirCount++; 
-    if (this.dirCount > 10) {
-      this.direction = this.changeDir();
-      this.dirCount = 0;
+    if (
+      this.dirCount > 10 &&
+      this.direction !== "fall"
+      ) {
+        this.direction = this.changeDir();
+        this.dirCount = 0;
     }
+    // change position based on random direction
+    if (this.direction === "fall") this.fallDown();
     if (this.direction === "left") this.left();
     if (this.direction === "right") this.right();
     if (this.direction === "top-left") this.topLeft();
     if (this.direction === "top-right") this.topRight();
     if (this.direction === "bot-left") this.bottomLeft();
     if (this.direction === "bot-right") this.bottomRight();
-      
-    
+    // increase frame index every tickCount number of updates.
+    // when frame index hits 3, it will reset back to the first frame.
     this.tickCount++;
     if (this.tickCount > this.ticksPerFrame) {
       this.tickCount = 0;
       this.frameIndex++;
     }
-
     if (this.frameIndex > 2) {
       this.frameIndex = 0;
     }
-    // console.log(this.frameIndex);
   }
 
   changeDir() {
+    if (this.collision()) {
+      this.image.src = "/Users/grady/Desktop/duckhunt/images/fall_down.png";
+      this.direction = "fall";
+      return "fall";
+    }
+    if (this.direction === "escape") return "escape";
+
     let num = Math.random();
     if ( num < 0.1667 ) {
       this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_left.png";
@@ -89,39 +96,34 @@ class Duck {
     }
   }
 
-  left() {
-    this.posX -= this.velX;
-  }
-
-  right() {
-    this.posX += this.velX;
-  }
-
+  left() { this.posX -= this.velX; }
+  right() { this.posX += this.velX; }
+  flyAway() { this.posY += this.velY; }
+  fallDown() { this.posY += this.velY; }
   topLeft() {
     this.posX -= this.velX;
-    this.posY += this.velY;
+    this.posY -= this.velY;
   }
   topRight() {
-    // this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_diagonal.png";
+    this.posX += this.velX;
+    this.posY -= this.velY;
+  }
+  bottomLeft() {
+    this.posX -= this.velX;
+    this.posY += this.velY;
+  }
+  bottomRight() {
     this.posX += this.velX;
     this.posY += this.velY;
   }
-  bottomLeft() {
-    // this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_diagonal.png";
-    this.posX -= this.velX;
-    this.posY -= this.velY;
-  }
-  bottomRight() {
-    // this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_diagonal.png";
-    this.posX += this.velX;
-    this.posY -= this.velY;
-  }
 
-  flyAway() {
-
-  }
-  fallDown() {
-
+  collision() {
+    return (
+      this.cross.clickPosX > this.posX && 
+      this.cross.clickPosX < this.posX + 40 &&
+      this.cross.clickPosY > this.posY &&
+      this.cross.clickPosY < this.posY + 40
+    );
   }
 }
 

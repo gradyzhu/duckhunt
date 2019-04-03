@@ -3,18 +3,14 @@ const Duck = require("./duck.js");
 const Cross = require("./cross.js");
 
 class Round {
-  constructor(c, score, roundCount, cross) {
+  constructor(c, score, roundCount) {
     this.c = c;
     this.shotCount = 3;
-
-    this.score = score;
     this.roundCount = roundCount;
     this.ducksLeft = 10;
     this.duckPosition = [0, 0];
 
     this.roundOver = false;
-    this.cross = cross;
-    this.crossPos = [this.cross.posX, this.cross.posY];
   }
 
   // play() {
@@ -32,6 +28,10 @@ class Round {
     this.c.fillText(`${this.ducksLeft}`, 180, 430);
   }
   
+  // collision(cross, duck) {
+  //   if cross.position
+  // }
+
   hit() {
     // if mouse on-click matches duck position
     this.shotCount--;
@@ -41,6 +41,10 @@ class Round {
   miss() {
     this.shotCount--;
     // if mouse on-click misses duck position
+  }
+
+  updateScore(score) {
+
   }
 
   over() {
