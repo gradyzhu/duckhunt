@@ -13,9 +13,9 @@ class Cross {
       console.log(`${this.posX}, ${this.posY}`);
     });
 
-    window.addEventListener('click', event => {
+    window.addEventListener('click', () => {
       this.click = true;
-      console.log('BOOM');
+      console.log('BOOM HEADSHOT');
     });
   }
 
@@ -36,18 +36,6 @@ class Cross {
     // this.render();
   }
 
-  // update() {
-  //   this.dc.canvas.addEventListener('mousemove', event => {
-  //     var bounds = canvas.getBoundingClientRect();
-  //     // let pos = {
-  //       //   x: event.clientX - bounds.left,
-  //       //   y: event.clientY - bounds.top
-  //       // };
-  //     this.posX = event.clientX - bounds.left;
-  //     this.posY =  event.clientY - bounds.top;
-  //     this.draw();
-  //     console.log(`${this.posX}, ${this.posY}`);
-  //   });
 }
 
 module.exports = Cross;

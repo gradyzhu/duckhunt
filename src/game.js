@@ -7,20 +7,15 @@ const Environment = require("./environment.js");
 class Game {
   constructor(c) {
     this.c = c;
-
+    this.gameOver = false;
+    
     this.roundCount = 0;
     this.score = new Score(this.c);
     this.cross = new Cross(this.c);
     this.duck = new Duck(this.c);
     this.environment = new Environment(this.c);
-
-    this.round = new Round(
-      this.c, 
-      this.score, 
-      this.roundCount, 
-      this.cross
-    );
-
+    this.round = null;
+    
     this.loop = this.loop.bind(this);
   }
 
@@ -44,10 +39,14 @@ class Game {
   }
 
   start() {
-    // while (!gameOver()) {
-    //   current = 
-    //   current.playRound();
-    // }
+    while (!this.gameOver) {
+      this.newRound();
+      this.round.play();
+    }
+  }
+
+  restart() {
+    console.log('restart');
   }
 
   newRound() {
@@ -55,7 +54,10 @@ class Game {
   }
 
   gameOver() {
-    return (this.round.ducksShot < 5 && this.round.ducksLeft === 0);
+    if (this.round.ducksShot < 5 && this.round.ducksLeft === 0) {
+      this.gameOver = true;
+    }
+    // render gameoverscreen
   }
 
 }

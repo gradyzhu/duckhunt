@@ -17,19 +17,19 @@ class Round {
     this.crossPos = [this.cross.posX, this.cross.posY];
   }
 
+  // play() {
+  //   while (!this.roundOver) {
+  //     // spawn duck
+  //     // 
+  //   }
+  // }
+
   render() {
     this.c.font = "20px Pixel Emulator";
     this.c.fillStyle = "white";
     this.c.fillText(`ROUND: ${this.roundCount}`, 200, 50);
     this.c.fillText(`${this.shotCount}`, 50, 430);
     this.c.fillText(`${this.ducksLeft}`, 180, 430);
-  }
-
-  resetRound() {
-    if (this.roundOver()) {
-      this.shotCount = 3;
-      this.roundOver = false;
-    }
   }
   
   hit() {
@@ -48,8 +48,6 @@ class Round {
       this.roundOver = true;
     }
   }
-
-
 }
 
 module.exports = Round;
