@@ -3,17 +3,19 @@ class Duck {
     this.c = c;
     this.posX = 200;
     this.posY = 200;
-    this.velX = 0;
-    this.velY = 0;
+    this.velX = 3;
+    this.velY = 3;
     this.frameIndex = 0;
     this.tickCount = 0;
-    this.ticksPerFrame = 6;
-
+    this.ticksPerFrame = 4;
+    this.dirCount = 0;
+    
     this.image = new Image();
     this.image.onload = () => {
       this.imageReady = true;
     };
-    this.image.src = "../images/fly_left.png";
+    this.image.src = "";
+    this.direction = this.changeDir();
     // window.draw = this.render.bind(this);
   }
 
@@ -34,14 +36,19 @@ class Duck {
   }
 
   update() {
-    let direction = this.flightDir();
-    if (direction === "left") this.left();
-    if (direction === "right") this.right();
-    if (direction === "top-left") this.topLeft();
-    if (direction === "top-right") this.topRight();
-    if (direction === "bot-left") this.bottomLeft();
-    if (direction === "bot-right") this.bottomRight();
-  
+    this.dirCount++; 
+    if (this.dirCount > 10) {
+      this.direction = this.changeDir();
+      this.dirCount = 0;
+    }
+    if (this.direction === "left") this.left();
+    if (this.direction === "right") this.right();
+    if (this.direction === "top-left") this.topLeft();
+    if (this.direction === "top-right") this.topRight();
+    if (this.direction === "bot-left") this.bottomLeft();
+    if (this.direction === "bot-right") this.bottomRight();
+      
+    
     this.tickCount++;
     if (this.tickCount > this.ticksPerFrame) {
       this.tickCount = 0;
@@ -54,39 +61,62 @@ class Duck {
     // console.log(this.frameIndex);
   }
 
-  flightDir() {
+  changeDir() {
     let num = Math.random();
-    if ( num < 0.1667 ) return "left";
-    if ( num > 0.1667 && num < 0.3333 ) return "right";
-    if ( num > 0.3333 && num < 0.50 ) return "top-left";
-    if ( num < 0.50 && num < 0.667 ) return "top-right";
-    if ( num < 0.667 && num < 0.833 ) return "bot-right";
-    if ( num < 0.833 && num < 1 ) return "bot-right";
+    if ( num < 0.1667 ) {
+      this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_left.png";
+      return "left";
+    }
+    if ( num > 0.1667 && num < 0.3333 ) {
+      this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_right.png";
+      return "right";
+    }
+    if ( num > 0.3333 && num < 0.50 ) {
+      this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_top_left.png";
+      return "top-left";
+    }
+    if ( num > 0.50 && num < 0.667 ) {
+      this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_top_right.png";
+      return "top-right";
+    }
+    if ( num > 0.667 && num < 0.833 ) {
+      this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_top_left.png";
+      return "bot-left";
+    }
+    if ( num > 0.833 && num < 1 ) {
+      this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_top_right.png";
+      return "bot-right";
+    }
   }
 
   left() {
-    this.posX += this.velX;
+    this.posX -= this.velX;
   }
 
   right() {
-    this.posX -= this.velX;
+    this.posX += this.velX;
   }
+
   topLeft() {
     this.posX -= this.velX;
     this.posY += this.velY;
   }
   topRight() {
+    // this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_diagonal.png";
     this.posX += this.velX;
     this.posY += this.velY;
   }
   bottomLeft() {
+    // this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_diagonal.png";
     this.posX -= this.velX;
     this.posY -= this.velY;
   }
   bottomRight() {
+    // this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_diagonal.png";
     this.posX += this.velX;
     this.posY -= this.velY;
   }
+
   flyAway() {
 
   }
