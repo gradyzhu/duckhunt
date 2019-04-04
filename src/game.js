@@ -9,7 +9,7 @@ class Game {
     this.gameOver = false;
     
     this.roundCount = 0;
-    this.score = new Score(this.c);
+    // this.scoreBoard = new Scoreboard(this.c);
     this.cross = new Cross(this.c);
     this.environment = new Environment(this.c);
     this.round = new Round(this.c, this.score, this.roundCount, this.cross);
@@ -24,14 +24,14 @@ class Game {
 
   update() {
     this.round.update();
-    this.score.update();
+    // this.scoreboard.update():
     this.cross.update();
   }
   
   render() {
     this.round.render();
     this.environment.render();
-    this.score.render();
+    // this.score.render();
     this.cross.render();
   }
 

@@ -17,12 +17,9 @@ class Cross {
     });
 
     window.addEventListener('click', () => {
-    //   this.click = true;
+      this.click = true;
       this.clickPosX = this.posX;
       this.clickPosY = this.posY;
-      console.log('BOOM HEADSHOT');
-      console.log(this.clickPosX);
-      console.log(this.clickPosY);
     });
   }
 

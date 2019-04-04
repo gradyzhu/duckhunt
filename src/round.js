@@ -1,75 +1,67 @@
 const Shot = require("./shot.js");
 const Duck = require("./duck.js");
 const Cross = require("./cross.js");
+const Wave = require("./wave.js");
 
 class Round {
   constructor(c, score, roundCount, cross) {
     this.c = c;
     this.score = score;
-    this.roundCount = roundCount;
     this.cross = cross;
-    this.duck = new Duck(this.c, this.cross);
+    this.roundCount = roundCount;
 
-    this.shotCount = 3;
-    this.ducksLeft = 10;
-    this.duckPosition = [0, 0];
-    this.waveOver = false;
+    this.wave = new Wave(this.c, this.score, this.cross);
     this.roundOver = false;
-    this.collision = this.duck.hit;
   }
 
-  // play() {
-  //   while (!this.roundOver) {
-  //     // spawn duck
-  //     // 
-  //   }
-  // }
+  start() {
+    while (!this.roundOver) {
+      
+    }
+  }
 
   render() {
-    this.duck.render();
+    this.wave.render();
   }
   
   update() {
-    this.duck.update();
+    this.wave.update();
+    // this.duck.update();
   }
 
-  hit() {
-
+  newWave() {
     // if mouse on-click matches duck position
-    if (this.duck.hit) {
-      this.shotCount--;
-      this.updateScore();
-      this.newSpawn();
-    }
+
   }
 
   miss() {
-    this.shotCount--;
+    this.shots--;
     // if mouse on-click misses duck position
   }
 
-  collision() {
-    if (
-      this.cross.clickPosX > this.duck.posX && 
-      this.cross.clickPosX < this.duck.posX + 40 &&
-      this.cross.clickPosY > this.duck.posY &&
-      this.cross.clickPosY < this.duck.posY + 40
-    ) {
-      this.collision = true;
-      return true;
-    }
-  }
+  // collision() {
+  //   if (
+  //     this.cross.clickPosX > this.duck.posX && 
+  //     this.cross.clickPosX < this.duck.posX + 40 &&
+  //     this.cross.clickPosY > this.duck.posY &&
+  //     this.cross.clickPosY < this.duck.posY + 40
+  //   ) {
+  //     this.collision = true;
+  //     return true;
+  //   }
+  // }
 
-  updateScore() {
-    this.score += 1000 * this.roundCount();
-  }
+  // updateScore() {
+  //   this.score += 1000 * this.roundCount();
+  // }
 
-  waveOver() {
-    return this.shotCount === 0;
-  }
+  // waveOver() {
+  //   return this.shotCount === 0 || this.duck.hit;
+  // }
 
   roundOver() {
-    return this.ducksLeft === 0;
+    let count = this.ducks.filter(el => el === 0);
+    return count < 5;
   }
 }
 
