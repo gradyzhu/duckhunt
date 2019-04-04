@@ -3,14 +3,19 @@ const Duck = require("./duck.js");
 const Cross = require("./cross.js");
 
 class Round {
-  constructor(c, score, roundCount) {
+  constructor(c, score, roundCount, cross) {
     this.c = c;
-    this.shotCount = 3;
+    this.score = score;
     this.roundCount = roundCount;
+    this.cross = cross;
+    this.duck = new Duck(this.c, this.cross);
+
+    this.shotCount = 3;
     this.ducksLeft = 10;
     this.duckPosition = [0, 0];
-
+    this.waveOver = false;
     this.roundOver = false;
+    this.collision = this.duck.hit;
   }
 
   // play() {
@@ -21,21 +26,21 @@ class Round {
   // }
 
   render() {
-    this.c.font = "20px Pixel Emulator";
-    this.c.fillStyle = "white";
-    this.c.fillText(`ROUND: ${this.roundCount}`, 200, 50);
-    this.c.fillText(`${this.shotCount}`, 50, 430);
-    this.c.fillText(`${this.ducksLeft}`, 180, 430);
+    this.duck.render();
   }
   
-  // collision(cross, duck) {
-  //   if cross.position
-  // }
+  update() {
+    this.duck.update();
+  }
 
   hit() {
+
     // if mouse on-click matches duck position
-    this.shotCount--;
-    this.score.points += 1000;
+    if (this.duck.hit) {
+      this.shotCount--;
+      this.updateScore();
+      this.newSpawn();
+    }
   }
 
   miss() {
@@ -43,14 +48,28 @@ class Round {
     // if mouse on-click misses duck position
   }
 
-  updateScore(score) {
-
+  collision() {
+    if (
+      this.cross.clickPosX > this.duck.posX && 
+      this.cross.clickPosX < this.duck.posX + 40 &&
+      this.cross.clickPosY > this.duck.posY &&
+      this.cross.clickPosY < this.duck.posY + 40
+    ) {
+      this.collision = true;
+      return true;
+    }
   }
 
-  over() {
-    if (this.shotCount === 0 || this.ducksLeft === 0) {
-      this.roundOver = true;
-    }
+  updateScore() {
+    this.score += 1000 * this.roundCount();
+  }
+
+  waveOver() {
+    return this.shotCount === 0;
+  }
+
+  roundOver() {
+    return this.ducksLeft === 0;
   }
 }
 

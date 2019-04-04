@@ -4,8 +4,8 @@ class Duck {
     this.cross = cross;
     this.posX = 200;
     this.posY = 200;
-    this.velX = 2;
-    this.velY = 2;
+    this.velX = 1;
+    this.velY = 1;
 
     this.frameIndex = 0;
     this.tickCount = 0;
@@ -18,6 +18,7 @@ class Duck {
     };
     this.image.src = "";
 
+    this.hit = false;
     this.direction = this.changeDir();
   }
 
@@ -64,6 +65,7 @@ class Duck {
   changeDir() {
     if (this.collision()) {
       this.image.src = "/Users/grady/Desktop/duckhunt/images/fall_down.png";
+      this.hit = true;
       this.direction = "fall";
       return "fall";
     }
