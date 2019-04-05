@@ -1,6 +1,6 @@
-const Score = require("./score.js");
 const Round = require("./round.js"); 
 const Cross = require("./cross.js");
+const Scoreboard = require("./scoreboard.js");
 const Environment = require("./environment.js");
 
 class Game {
@@ -9,10 +9,12 @@ class Game {
     this.gameOver = false;
     
     this.roundCount = 0;
-    // this.scoreBoard = new Scoreboard(this.c);
     this.cross = new Cross(this.c);
+    this.scoreboard = new Scoreboard(this.c);
     this.environment = new Environment(this.c);
-    this.round = new Round(this.c, this.score, this.roundCount, this.cross);
+
+    this.round = new Round(this.c, this.roundCount, this.cross, this.scoreboard);
+
     this.loop = this.loop.bind(this);
   }
 
@@ -24,14 +26,14 @@ class Game {
 
   update() {
     this.round.update();
-    // this.scoreboard.update():
+    this.scoreboard.update();
     this.cross.update();
   }
   
   render() {
     this.round.render();
     this.environment.render();
-    // this.score.render();
+    this.scoreboard.render();
     this.cross.render();
   }
 
@@ -47,7 +49,7 @@ class Game {
   // }
 
   newRound() {
-    this.round = new Round(this.c, this.score, this.roundCount, this.cross);
+    this.round = new Round(this.c, this.score, this.roundCount, this.cross, this.scoreboard);
   }
 
   gameOver() {

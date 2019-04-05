@@ -1,56 +1,33 @@
 const Duck = require("./duck.js");
 
 class Wave {
-  constructor(c, score, cross) {
+  constructor(c, cross, shots, ducks, scoreboard, roundCount) {
     this.c = c;
-    this.score = score;
     this.cross = cross;
-
+    this.ducks = ducks;
+    this.shots = shots;
+    this.scoreboard = scoreboard;
+    this.roundCount = roundCount;
     this.duck = new Duck(this.c, this.cross);
-    this.shots = [0,0,0];
-    this.ducks = [0,1,0,0,0,1,0,0,0,0];
+    this.waveOver = false;
     this.waveCount = 0;
-
-    this.duckImage = new Image();
-    this.duckImage.onload = () => this.duckImageReady = true;
-    this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/missed_duck.png";
-
-    this.hitDuckImage = new Image();
-    this.hitDuckImage.onload = () => this.hitDuckImageReady = true;
-    this.hitDuckImage.src = "/Users/grady/Desktop/duckhunt/images/hit_duck.png";
   }
 
   render() {
-    if (!this.duckImageReady) return;
-    if (!this.hitDuckImageReady) return;
-
-    for (let i = 0; i < this.ducks.length; i++) {
-      if (this.ducks[i] === 0) {
-        this.c.drawImage(this.duckImage,
-          0, 0,
-          25, 25,
-          200 + (i+1)*19, 200,
-          20, 20
-        );
-      }
-      if (this.ducks[i] === 1) {
-        this.c.drawImage(this.hitDuckImage,
-          0, 0,
-          25, 25,
-          200 + (i+1)*19, 200,
-          20, 20
-        );
-      }
-    }
+    this.duck.render();
   }
 
   update() {
+    this.duck.update();
     if (this.waveCount === 10) return;
-    if (this.waveOver()) {
+
+    this.isWaveOver();
+    if (this.waveOver) {
+      this.waveOver = false;
+      this.ducks.arr[this.waveCount] = 1;
+      this.shots.arr = [0,0,0];
+      this.roundCount++;
       this.updateScore();
-      this.ducks[this.waveCount] = 1;
-      this.waveCount++;
-      this.shots = [0,0,0];
       this.spawn();
     }
     //play dog animation  
@@ -61,12 +38,15 @@ class Wave {
   }
 
   updateScore() {
-    this.score += 1000 * this.waveCount;
+    this.scoreboard.points += 1000 * this.roundCount;
+    console.log(this.scoreboard.points);
   }
 
-  waveOver() {
-    let count = this.shots.filter(el => el === 0);
-    return count === 0 || this.duck.hit;
+  isWaveOver() {
+    if (this.shots.count === 0 || this.duck.hit) {
+      this.waveOver = true;
+    }
   }
+
 }
 module.exports = Wave;

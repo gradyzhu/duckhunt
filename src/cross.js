@@ -1,10 +1,10 @@
 class Cross {
-  constructor(c) {
+  constructor(c, shots) {
     this.c = c;
     this.posX = 0;
     this.posY = 0;
     this.radius = 20;
-    this.click = false;
+    this.clickCount = 0;
     this.clickPosX = 0;
     this.clickPosY = 0;
 
@@ -13,13 +13,16 @@ class Cross {
       this.posX = event.clientX - bounds.left;
       this.posY = event.clientY - bounds.top;
       this.update();
-      console.log(`${this.posX}, ${this.posY}`);
     });
 
     window.addEventListener('click', () => {
-      this.click = true;
+      if (this.clickCount === 3) {
+        this.clickCount = 0;
+      }
+      this.clickCount++;
       this.clickPosX = this.posX;
       this.clickPosY = this.posY;
+      console.log("pow");
     });
   }
 

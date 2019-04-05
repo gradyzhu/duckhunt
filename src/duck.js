@@ -67,6 +67,7 @@ class Duck {
       this.image.src = "/Users/grady/Desktop/duckhunt/images/fall_down.png";
       this.hit = true;
       this.direction = "fall";
+      console.log('ouch');
       return "fall";
     }
     if (this.direction === "escape") return "escape";
