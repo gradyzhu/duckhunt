@@ -24,28 +24,26 @@ class Wave {
     this.isWaveOver();
 
     if (this.waveOver) {
-      // console.log(this.shots.count);
       this.waveOver = false;
       this.ducks.arr[this.waveCount] = 1;
       this.shots.arr = [0,0,0];
       this.updateScore();
-      this.duck = new Duck(this.c, this.cross);
+      this.spawn();
     }
     //play dog animation  
   }
 
-  // spawn() {
-  //   this.duck = new Duck(this.c, this.cross);
-  // }
+  spawn() {
+    this.duck = new Duck(this.c, this.cross);
+  }
 
 
   updateScore() {
-    this.scoreboard.points += 1000 * this.roundCount;
-    console.log(this.scoreboard.points);
+    this.scoreboard.score.points += 1000 * this.roundCount;
   }
 
   isWaveOver() {
-    if (this.duck.hit) {
+    if (this.duck.hit && this.duck.finishFallAni) {
       this.waveOver = true;
     }
   }

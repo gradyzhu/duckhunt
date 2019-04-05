@@ -2,7 +2,7 @@ class Duck {
   constructor(c, cross) {
     this.c = c;
     this.cross = cross;
-    this.posX = 200;
+    this.posX = Math.random() * 512;
     this.posY = 200;
     this.velX = 1;
     this.velY = 1;
@@ -20,10 +20,12 @@ class Duck {
 
     this.hit = false;
     this.direction = this.changeDir();
+
+    this.endAnimation = false;
   }
 
   render() {
-    console.log(this.collision());
+    // console.log(this.collision());
     if (!this.imageReady) return;
     this.c.drawImage(this.image, 
       this.frameIndex * 120 / 3, 0, 
@@ -121,8 +123,8 @@ class Duck {
   }
 
   collision() {
-    console.log(this.cross.clickPosX)
-    console.log(this.cross.clickPosY)
+    // console.log(this.cross.clickPosX)
+    // console.log(this.cross.clickPosY)
     return (
       this.cross.clickPosX > this.posX && 
       this.cross.clickPosX < this.posX + 40 &&
@@ -130,6 +132,8 @@ class Duck {
       this.cross.clickPosY < this.posY + 40
     );
   }
+
+  
 }
 
 module.exports = Duck;

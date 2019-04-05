@@ -6,7 +6,7 @@ class Scoreboard {
   constructor(c) {
     this.c = c;
     this.score = new Score(this.c);
-    this.points = this.score.points;
+    // this.points = this.score.points;
     
     this.shots = new Shots(this.c);
     this.ducks = new Ducks(this.c);
