@@ -1,16 +1,15 @@
 const Duck = require("./duck.js");
 
 class Wave {
-  constructor(c, cross, shots, ducks, scoreboard, roundCount) {
+  constructor(c, cross, ducks, scoreboard, roundCount, waveCount) {
     this.c = c;
     this.cross = cross;
     this.ducks = ducks;
-    this.shots = shots;
     this.scoreboard = scoreboard;
     this.roundCount = roundCount;
-    this.duck = new Duck(this.c, this.cross);
+    this.waveCount = waveCount;
     this.waveOver = false;
-    this.waveCount = 0;
+    this.duck = new Duck(this.c, this.cross); 
   }
 
   render() {
@@ -19,34 +18,35 @@ class Wave {
 
   update() {
     this.duck.update();
-    if (this.waveCount === 10) return;
-
     this.isWaveOver();
-
     if (this.waveOver) {
-      this.waveOver = false;
       this.ducks.arr[this.waveCount] = 1;
-      this.shots.arr = [0,0,0];
-      this.updateScore();
-      this.spawn();
     }
-    //play dog animation  
   }
-
-  spawn() {
-    this.duck = new Duck(this.c, this.cross);
-  }
-
 
   updateScore() {
-    this.scoreboard.score.points += 1000 * this.roundCount;
+    this.scoreboard.score.points += 1000 + 500 * this.roundCount;
+  }
+
+  duckHit() {
+    if (this.duck.hit) {
+      this.updateScore();
+      return true;
+    }
+  }
+
+  noShots() {
+    return this.scoreboard.shots.count === 0;
   }
 
   isWaveOver() {
-    if (this.duck.hit && this.duck.finishFallAni) {
+    if (this.duckHit() || this.noShots()) {
       this.waveOver = true;
     }
   }
-
+  
+  resetShots() {
+    this.scoreboard.shots.count = 3;
+  }
 }
 module.exports = Wave;

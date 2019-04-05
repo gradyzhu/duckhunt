@@ -7,12 +7,11 @@ class Game {
   constructor(c) {
     this.c = c;
     this.gameOver = false;
-    
     this.roundCount = 1;
-    this.cross = new Cross(this.c);
+
     this.scoreboard = new Scoreboard(this.c);
     this.environment = new Environment(this.c);
-
+    this.cross = new Cross(this.c, this.scoreboard);
     this.round = new Round(this.c, this.roundCount, this.cross, this.scoreboard);
 
     this.loop = this.loop.bind(this);
@@ -42,10 +41,6 @@ class Game {
   //     this.newRound();
   //     this.round.play();
   //   }
-  // }
-
-  // restart() {
-  //   console.log('restart');
   // }
 
   newRound() {

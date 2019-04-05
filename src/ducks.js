@@ -1,7 +1,7 @@
 class Ducks {
   constructor(c) {
     this.c = c;
-    this.arr = [0,1,0,0,0,1,0,0,0,0];
+    this.arr = [0,0,0,0,0,0,0,0,0,0];
 
     this.duckImage = new Image();
     this.duckImage.onload = () => this.duckImageReady = true;
@@ -18,19 +18,19 @@ class Ducks {
 
     for (let i = 0; i < this.arr.length; i++) {
       if (this.arr[i] === 0) {
-        this.c.drawImage(this.duckImage,
-          0, 0,
-          25, 25,
-          200 + (i+1)*19, 200,
-          20, 20
+        this.c.drawImage(
+          this.duckImage,
+          0, 0, 25, 25,
+          175+ ((i+1)*16), 415,
+          16, 16
         );
       }
       if (this.arr[i] === 1) {
-        this.c.drawImage(this.hitDuckImage,
-          0, 0,
-          25, 25,
-          200 + (i+1)*19, 200,
-          20, 20
+        this.c.drawImage(
+          this.hitDuckImage,
+          0, 0, 25, 25,
+          175 + ((i+1)*16), 415,
+          16, 16
         );
       }
     }

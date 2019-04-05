@@ -25,9 +25,9 @@ class Duck {
   }
 
   render() {
-    // console.log(this.collision());
     if (!this.imageReady) return;
-    this.c.drawImage(this.image, 
+    this.c.drawImage(
+      this.image, 
       this.frameIndex * 120 / 3, 0, 
       40, 40, 
       this.posX, this.posY, 
@@ -123,8 +123,6 @@ class Duck {
   }
 
   collision() {
-    // console.log(this.cross.clickPosX)
-    // console.log(this.cross.clickPosY)
     return (
       this.cross.clickPosX > this.posX && 
       this.cross.clickPosX < this.posX + 40 &&
@@ -132,8 +130,6 @@ class Duck {
       this.cross.clickPosY < this.posY + 40
     );
   }
-
-  
 }
 
 module.exports = Duck;

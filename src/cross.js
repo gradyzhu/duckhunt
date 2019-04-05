@@ -1,10 +1,10 @@
 class Cross {
-  constructor(c, shots) {
+  constructor(c, scoreboard) {
     this.c = c;
     this.posX = 0;
     this.posY = 0;
     this.radius = 20;
-    this.clickCount = 0;
+    this.shots = scoreboard.shots;
     this.clickPosX = 1000;
     this.clickPosY = 1000;
 
@@ -18,15 +18,12 @@ class Cross {
     });
 
     window.addEventListener('click', () => {
-      if (this.clickCount === 3) {
-        this.clickCount = 0;
-      }
+      this.shots.count--;
       this.clickCount++;
       this.clickPosX = this.posX;
       this.clickPosY = this.posY;
     });
   }
-
 
   render() {
     this.c.beginPath();
@@ -54,7 +51,6 @@ class Cross {
 
   update() {
     this.c.clearRect(0, 0, this.c.canvas.width, this.c.canvas.height);
-    // this.render();
   }
 
 }

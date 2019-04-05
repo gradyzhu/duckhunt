@@ -8,10 +8,11 @@ class Round {
     this.cross = cross;
     this.roundCount = roundCount;
     this.scoreboard = scoreboard;
-
-    this.shots = new Shots(this.c);
     this.ducks = new Ducks(this.c);
-    this.wave = new Wave(this.c, this.cross, this.shots, this.ducks, this.scoreboard, this.roundCount);
+    this.waveCount = 0;
+
+    this.wave = new Wave(this.c, this.cross, this.ducks, this.scoreboard, this.roundCount, this.waveCount);
+
     this.roundOver = false;
   }
 
@@ -27,42 +28,23 @@ class Round {
   
   update() {
     this.wave.update();
-    // this.duck.update();
+    if (this.wave.waveOver) {
+      this.resetShots();
+      this.newWave();
+    }
   }
 
   newWave() {
-    // if mouse on-click matches duck position
-
+    this.wave = new Wave(this.c, this.cross, this.ducks, this.scoreboard, this.roundCount, this.waveCount);
   }
-
-  miss() {
-    this.shots--;
-    // if mouse on-click misses duck position
-  }
-
-  // collision() {
-  //   if (
-  //     this.cross.clickPosX > this.duck.posX && 
-  //     this.cross.clickPosX < this.duck.posX + 40 &&
-  //     this.cross.clickPosY > this.duck.posY &&
-  //     this.cross.clickPosY < this.duck.posY + 40
-  //   ) {
-  //     this.collision = true;
-  //     return true;
-  //   }
-  // }
-
-  // updateScore() {
-  //   this.score += 1000 * this.roundCount();
-  // }
-
-  // waveOver() {
-  //   return this.shotCount === 0 || this.duck.hit;
-  // }
 
   roundOver() {
     let count = this.ducks.filter(el => el === 0);
     return count < 5;
+  }
+    
+  resetShots() {
+    this.scoreboard.shots.count = 3;
   }
 }
 
