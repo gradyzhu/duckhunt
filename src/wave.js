@@ -1,10 +1,9 @@
 const Duck = require("./duck.js");
 
 class Wave {
-  constructor(c, cross, ducks, scoreboard, roundCount, waveCount) {
+  constructor(c, cross, scoreboard, roundCount, waveCount) {
     this.c = c;
     this.cross = cross;
-    this.ducks = ducks;
     this.scoreboard = scoreboard;
     this.roundCount = roundCount;
     this.waveCount = waveCount;
@@ -19,9 +18,10 @@ class Wave {
   update() {
     this.duck.update();
     this.isWaveOver();
-    if (this.waveOver) {
-      this.ducks.arr[this.waveCount] = 1;
-    }
+  }
+
+  updateDucks() {
+    this.scoreboard.ducks.arr[this.waveCount] = 1;
   }
 
   updateScore() {
@@ -30,9 +30,12 @@ class Wave {
 
   duckHit() {
     if (this.duck.hit) {
+      this.updateDucks();
+      this.waveCount = this.waveCount + 1;
       this.updateScore();
       return true;
     }
+    return false;
   }
 
   noShots() {

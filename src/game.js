@@ -36,24 +36,23 @@ class Game {
     this.cross.render();
   }
 
+  
+  newRound() {
+    this.round = new Round(this.c, this.score, this.roundCount, this.cross, this.scoreboard);
+  }
+  
+  gameOver() {
+    if (this.round.ducksShot < 5 && this.round.ducksLeft === 0) {
+      this.gameOver = true;
+    }
+  }
+  
   // start() {
   //   while (!this.gameOver) {
   //     this.newRound();
   //     this.round.play();
   //   }
   // }
-
-  newRound() {
-    this.round = new Round(this.c, this.score, this.roundCount, this.cross, this.scoreboard);
-  }
-
-  gameOver() {
-    if (this.round.ducksShot < 5 && this.round.ducksLeft === 0) {
-      this.gameOver = true;
-    }
-    // render gameoverscreen
-  }
-
 }
 
 module.exports = Game;

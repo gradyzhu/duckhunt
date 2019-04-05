@@ -1,4 +1,3 @@
-const Shots = require("./shots.js");
 const Wave = require("./wave.js");
 const Ducks = require("./ducks.js");
 
@@ -11,7 +10,7 @@ class Round {
     this.ducks = new Ducks(this.c);
     this.waveCount = 0;
 
-    this.wave = new Wave(this.c, this.cross, this.ducks, this.scoreboard, this.roundCount, this.waveCount);
+    this.wave = new Wave(this.c, this.cross, this.scoreboard, this.roundCount, this.waveCount);
 
     this.roundOver = false;
   }
@@ -24,18 +23,21 @@ class Round {
 
   render() {
     this.wave.render();
+    // console.log(this.waveCount);
+    // console.log(this.ducks.arr);
   }
   
   update() {
     this.wave.update();
     if (this.wave.waveOver) {
+      this.waveCount++;
       this.resetShots();
       this.newWave();
     }
   }
 
   newWave() {
-    this.wave = new Wave(this.c, this.cross, this.ducks, this.scoreboard, this.roundCount, this.waveCount);
+    this.wave = new Wave(this.c, this.cross, this.scoreboard, this.roundCount, this.waveCount);
   }
 
   roundOver() {
