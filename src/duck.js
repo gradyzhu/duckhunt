@@ -23,6 +23,7 @@ class Duck {
   }
 
   render() {
+    console.log(this.collision());
     if (!this.imageReady) return;
     this.c.drawImage(this.image, 
       this.frameIndex * 120 / 3, 0, 
@@ -42,7 +43,7 @@ class Duck {
         this.direction = this.changeDir();
         this.dirCount = 0;
     }
-    // change position based on random direction
+  // change position based on random direction
     if (this.direction === "fall") this.fallDown();
     if (this.direction === "left") this.left();
     if (this.direction === "right") this.right();
@@ -67,7 +68,6 @@ class Duck {
       this.image.src = "/Users/grady/Desktop/duckhunt/images/fall_down.png";
       this.hit = true;
       this.direction = "fall";
-      console.log('ouch');
       return "fall";
     }
     if (this.direction === "escape") return "escape";
@@ -121,6 +121,8 @@ class Duck {
   }
 
   collision() {
+    console.log(this.cross.clickPosX)
+    console.log(this.cross.clickPosY)
     return (
       this.cross.clickPosX > this.posX && 
       this.cross.clickPosX < this.posX + 40 &&

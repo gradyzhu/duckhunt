@@ -11,7 +11,6 @@ class Round {
 
     this.shots = new Shots(this.c);
     this.ducks = new Ducks(this.c);
-
     this.wave = new Wave(this.c, this.cross, this.shots, this.ducks, this.scoreboard, this.roundCount);
     this.roundOver = false;
   }

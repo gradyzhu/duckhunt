@@ -22,20 +22,22 @@ class Wave {
     if (this.waveCount === 10) return;
 
     this.isWaveOver();
+
     if (this.waveOver) {
+      // console.log(this.shots.count);
       this.waveOver = false;
       this.ducks.arr[this.waveCount] = 1;
       this.shots.arr = [0,0,0];
-      this.roundCount++;
       this.updateScore();
-      this.spawn();
+      this.duck = new Duck(this.c, this.cross);
     }
     //play dog animation  
   }
 
-  spawn() {
-    this.duck = new Duck(this.c, this.cross);
-  }
+  // spawn() {
+  //   this.duck = new Duck(this.c, this.cross);
+  // }
+
 
   updateScore() {
     this.scoreboard.points += 1000 * this.roundCount;
@@ -43,7 +45,7 @@ class Wave {
   }
 
   isWaveOver() {
-    if (this.shots.count === 0 || this.duck.hit) {
+    if (this.duck.hit) {
       this.waveOver = true;
     }
   }

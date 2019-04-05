@@ -5,10 +5,12 @@ class Cross {
     this.posY = 0;
     this.radius = 20;
     this.clickCount = 0;
-    this.clickPosX = 0;
-    this.clickPosY = 0;
+    this.clickPosX = 1000;
+    this.clickPosY = 1000;
 
     window.addEventListener('mousemove', event => {
+      this.clickPosX = 1000;
+      this.clickPosY = 1000;
       var bounds = this.c.canvas.getBoundingClientRect();
       this.posX = event.clientX - bounds.left;
       this.posY = event.clientY - bounds.top;
@@ -22,7 +24,6 @@ class Cross {
       this.clickCount++;
       this.clickPosX = this.posX;
       this.clickPosY = this.posY;
-      console.log("pow");
     });
   }
 

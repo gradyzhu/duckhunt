@@ -8,7 +8,7 @@ class Game {
     this.c = c;
     this.gameOver = false;
     
-    this.roundCount = 0;
+    this.roundCount = 1;
     this.cross = new Cross(this.c);
     this.scoreboard = new Scoreboard(this.c);
     this.environment = new Environment(this.c);
