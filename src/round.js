@@ -7,7 +7,6 @@ class Round {
     this.cross = cross;
     this.roundCount = roundCount;
     this.scoreboard = scoreboard;
-    this.ducks = new Ducks(this.c);
     this.waveCount = 0;
 
     this.wave = new Wave(this.c, this.cross, this.scoreboard, this.roundCount, this.waveCount);
@@ -23,12 +22,12 @@ class Round {
 
   render() {
     this.wave.render();
-    // console.log(this.waveCount);
-    // console.log(this.ducks.arr);
   }
   
   update() {
     this.wave.update();
+    this.isRoundOver();
+
     if (this.wave.waveOver) {
       this.waveCount++;
       this.resetShots();
@@ -40,9 +39,10 @@ class Round {
     this.wave = new Wave(this.c, this.cross, this.scoreboard, this.roundCount, this.waveCount);
   }
 
-  roundOver() {
-    let count = this.ducks.filter(el => el === 0);
-    return count < 5;
+  isRoundOver() {
+    if (this.waveCount === 10) {
+      this.roundOver = true;
+    }
   }
     
   resetShots() {
