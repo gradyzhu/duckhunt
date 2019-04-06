@@ -7,32 +7,60 @@ class Duck {
     this.velX = 1 * roundCount;
     this.velY = 1 * roundCount;
     this.roundCount = roundCount;
-
+    this.hit = false;
+    
     this.frameIndex = 0;
     this.tickCount = 0;
     this.ticksPerFrame = 4;
     this.dirCount = 0;
-    
-    this.image = new Image();
-    this.image.onload = () => {
-      this.imageReady = true;
-    };
-    this.image.src = "";
 
-    this.hit = false;
+    this.duckImage = new Image();
+    this.duckImage.onload = () => this.duckImageReady = true;
+    this.duckImage.src = "";
     this.direction = this.changeDir();
 
-    this.endAnimation = false;
+    this.hitImage = new Image();
+    this.hitImage.onload = () => this.hitImageReady = true;
+    this.hitImage.src = "/Users/grady/Desktop/duckhunt/images/dog_single_duck.png";
+
+    this.missFrameIndex = 0;
+    this.missTickCount = 0;
+    this.missTicksPerFrame = 4;
+
+    this.missImage = new Image();
+    this.missImage.onload = () => this.missImageReady = true;
+    this.missImage.src = "/Users/grady/Desktop/duckhunt/images/dog_laugh.png";
+
+    this.aniFinish = false;
   }
 
   render() {
-    if (!this.imageReady) return;
+    if (!this.duckImageReady) return;
+    if (this.isDuckFallen()) {
+
+    }
     this.c.drawImage(
-      this.image, 
+      this.duckImage, 
       this.frameIndex * 120 / 3, 0, 
       40, 40, 
       this.posX, this.posY, 
       70, 70
+    );
+
+    this.c.drawImage(
+      this.missImage, 
+      this.missFrameIndex * 120 / 2, 0,
+      60, 60, 
+      204, 238, 
+      111, 111
+    );
+
+    this.c.drawImage(
+      this.hitImage, 
+      0, 0,
+      60, 60, 
+      this.posX - 20, 238, 
+      111, 111
     );
   }
 
@@ -64,11 +92,20 @@ class Duck {
     if (this.frameIndex > 2) {
       this.frameIndex = 0;
     }
+
+    this.missTickCount++;
+    if (this.missTickCount > this.missTicksPerFrame) {
+      this.missTickCount = 0;
+      this.missFrameIndex++;
+    }
+    if (this.missFrameIndex > 1) {
+      this.missFrameIndex = 0;
+    }
   }
 
   changeDir() {
     if (this.collision()) {
-      this.image.src = "/Users/grady/Desktop/duckhunt/images/fall_down.png";
+      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fall_down.png";
       this.hit = true;
       this.direction = "fall";
       return "fall";
@@ -77,27 +114,27 @@ class Duck {
 
     let num = Math.random();
     if ( num < 0.1667 ) {
-      this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_left.png";
+      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fly_left.png";
       return "left";
     }
     if ( num > 0.1667 && num < 0.3333 ) {
-      this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_right.png";
+      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fly_right.png";
       return "right";
     }
     if ( num > 0.3333 && num < 0.50 ) {
-      this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_top_left.png";
+      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fly_top_left.png";
       return "top-left";
     }
     if ( num > 0.50 && num < 0.667 ) {
-      this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_top_right.png";
+      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fly_top_right.png";
       return "top-right";
     }
     if ( num > 0.667 && num < 0.833 ) {
-      this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_top_left.png";
+      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fly_top_left.png";
       return "bot-left";
     }
     if ( num > 0.833 && num < 1 ) {
-      this.image.src = "/Users/grady/Desktop/duckhunt/images/fly_top_right.png";
+      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fly_top_right.png";
       return "bot-right";
     }
   }
@@ -131,6 +168,21 @@ class Duck {
       this.cross.clickPosY < this.posY + 40
     );
   }
+
+  isDuckFallen() {
+    return this.posY > 250;
+  }
+
+  dogAniOver() {
+
+  }
+
+  isAniOver() {
+    if (this.isDuckFallen() && this.dogAniOver()) {
+
+    }
+  }
+
 }
 
 module.exports = Duck;
