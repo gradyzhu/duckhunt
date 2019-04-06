@@ -1,11 +1,12 @@
 class Duck {
-  constructor(c, cross) {
+  constructor(c, cross, roundCount) {
     this.c = c;
     this.cross = cross;
     this.posX = Math.random() * 512;
     this.posY = 200;
-    this.velX = 1;
-    this.velY = 1;
+    this.velX = 1 * roundCount;
+    this.velY = 1 * roundCount;
+    this.roundCount = roundCount;
 
     this.frameIndex = 0;
     this.tickCount = 0;

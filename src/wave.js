@@ -8,7 +8,7 @@ class Wave {
     this.roundCount = roundCount;
     this.waveCount = waveCount;
     this.waveOver = false;
-    this.duck = new Duck(this.c, this.cross); 
+    this.duck = new Duck(this.c, this.cross, this.roundCount); 
   }
 
   render() {
@@ -25,7 +25,11 @@ class Wave {
   }
 
   updateScore() {
-    this.scoreboard.score.points += 1000 + 500 * this.roundCount;
+    if (this.roundCount === 1) {
+      this.scoreboard.score.points += 1000;
+    } else {
+      this.scoreboard.score.points += 1000 + 500 * (this.roundCount - 1);
+    }
   }
 
   duckHit() {
