@@ -30,6 +30,7 @@ class Round {
 
     if (this.wave.waveOver) {
       this.waveCount++;
+      this.scoreboard.ducks.waveCount++;
       this.resetShots();
       this.newWave();
     }

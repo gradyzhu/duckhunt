@@ -11,6 +11,8 @@ class Game {
     this.c = c;
     this.roundCount = 1;
     
+    this.start = true;
+
     this.dog = new Dog(this.c);
     this.scoreboard = new Scoreboard(this.c);
     this.environment = new Environment(this.c);
@@ -28,6 +30,7 @@ class Game {
   }
 
   update() {
+    this.isStart();
     this.isGameOver();
     this.dog.update();
     this.round.update();
@@ -41,13 +44,14 @@ class Game {
   }
   
   render() {
-    this.round.render();
     this.environment.render();
-    this.dog.renderFront();
-    this.scoreboard.render();
-    if (this.gameOver) {
-      this.gameOverScreen.render();
+    if (this.gameOver) this.gameOverScreen.render();
+    if (this.start) this.dog.renderStartAni();
+    if (!this.start && !this.gameOver) {
+        this.round.render();
+        this.environment.render();
     }
+    this.scoreboard.render();
     this.cross.render();
   }
   
@@ -57,6 +61,13 @@ class Game {
 
   newScoreboard() {
     this.scoreboard.ducks = new Ducks(this.c);
+  }
+
+  isStart() {
+    if (this.dog.startAni.jumpEndFin) this.start = false;
+  }
+
+  isPlay() {
   }
   
   isGameOver() {

@@ -15,8 +15,8 @@ class Wave {
 
   render() {
     this.duck.render();
-    this.dog.renderHit();
-    this.dog.renderMiss();
+    // this.dog.renderHit();
+    // this.dog.renderMiss();
   }
 
   update() {

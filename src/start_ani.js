@@ -36,11 +36,12 @@ class StartAni {
 
     //jump
     this.shockFin = false;
-    this.jumpStartFin = false;
-    this.jumpEndFin = false;
-
     this.shockCount = 0;
+
+    this.jumpStartFin = false;
     this.jumpStartCount = 0;
+
+    this.jumpEndFin = false;
     this.jumpEndCount = 0;
 
     this.jumpImage = new Image();
@@ -57,6 +58,8 @@ class StartAni {
   }
 
   update() {
+    this.updateSniff();
+    this.updateWalk();
     this.isWalk1Fin();
     this.isWalk2Fin();
     this.isSniff1Fin();
@@ -64,10 +67,6 @@ class StartAni {
     this.isShockFin();
     this.isJumpStartFin();
     this.isJumpEndFin();
-
-    this.updateSniff();
-    this.updateWalk();
-
   }
 
   //walk and sniff render functions
@@ -107,7 +106,7 @@ class StartAni {
       this.dogPosX, 275, 
       125, 125);
   }
-  
+
   // sprite update functions
   updateSniff() {
     this.sniffTickCount++;
@@ -130,7 +129,7 @@ class StartAni {
       this.walkFrameIndex = 0;
     }
   }
-
+  
   // jump render functions
   renderShock() {
     this.c.drawImage(this.jumpImage, 
@@ -173,21 +172,17 @@ class StartAni {
       this.renderJumpEnd();
       this.jumpEndCount++;
     }
+    if (this.jumpEndFin) {
+      this.jumpImage.src = "";
+    }
   }
 
   // jump update functions
-  isWalk1Fin() {
-    if (this.walk1Count > 40) this.walk1Fin = true;
-  }
-  isSniff1Fin() {
-    if (this.sniff1Count > 40) this.sniff1Fin = true;
-  }
-  isWalk2Fin() {
-    if (this.walk2Count > 40) this.walk2Fin = true;
-  }
-  isSniff2Fin() {
-    if (this.sniff2Count > 40) this.sniff2Fin = true;
-  }
+  isWalk1Fin() {if (this.walk1Count > 50) this.walk1Fin = true;}
+  isSniff1Fin() {if (this.sniff1Count > 40) this.sniff1Fin = true;}
+  isWalk2Fin() {if (this.walk2Count > 40) this.walk2Fin = true;}
+  isSniff2Fin() {if (this.sniff2Count > 40) this.sniff2Fin = true;}
+
   isShockFin() {
     if (this.shockCount > 20) {
       this.shockFin = true;
@@ -202,9 +197,7 @@ class StartAni {
       this.dogPosX -= 2;
     }
   }
-  isJumpEndFin() {
-    if (this.jumpEndCount > 20) this.jumpEndFin = true;
-  }
+  isJumpEndFin() {if (this.jumpEndCount > 7) this.jumpEndFin = true;}
 }
 
 module.exports = StartAni;

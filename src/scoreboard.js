@@ -6,10 +6,10 @@ const Round = require("./round");
 class Scoreboard {
   constructor(c) {
     this.c = c;
+    this.roundCount = 1;
     this.score = new Score(this.c);
     this.shots = new Shots(this.c);
     this.ducks = new Ducks(this.c);
-    this.roundCount = 1;
   }
 
   render() {

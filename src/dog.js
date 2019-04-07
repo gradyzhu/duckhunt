@@ -18,13 +18,8 @@ class Dog {
     this.missImage.src = "/Users/grady/Desktop/duckhunt/images/dog_laugh.png";
   }
 
-  renderFront() {
+  renderStartAni() {
     this.startAni.render();
-  }
-
-  renderBehind() {
-    this.renderHit();
-    this.renderMiss();
   }
 
   renderHit() {
