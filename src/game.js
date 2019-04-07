@@ -43,9 +43,7 @@ class Game {
   render() {
     this.round.render();
     this.environment.render();
-    this.dog.renderWalk();
-    this.dog.renderSniff();
-    this.dog.renderJump();
+    this.dog.renderFront();
     this.scoreboard.render();
     if (this.gameOver) {
       this.gameOverScreen.render();

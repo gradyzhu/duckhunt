@@ -1,6 +1,7 @@
 const Score = require("./score.js");
 const Shots = require("./shots");
 const Ducks = require("./ducks");
+const Round = require("./round");
 
 class Scoreboard {
   constructor(c) {
@@ -8,6 +9,7 @@ class Scoreboard {
     this.score = new Score(this.c);
     this.shots = new Shots(this.c);
     this.ducks = new Ducks(this.c);
+    this.roundCount = 1;
   }
 
   render() {
