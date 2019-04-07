@@ -1,4 +1,5 @@
 const Duck = require("./duck.js");
+const Dog = require("./dog.js");
 
 class Wave {
   constructor(c, cross, scoreboard, roundCount, waveCount) {
@@ -8,15 +9,19 @@ class Wave {
     this.roundCount = roundCount;
     this.waveCount = waveCount;
     this.waveOver = false;
-    this.duck = new Duck(this.c, this.cross, this.roundCount); 
+    this.duck = new Duck(this.c, this.cross, this.roundCount);
+    this.dog = new Dog(this.c);
   }
 
   render() {
     this.duck.render();
+    this.dog.renderHit();
+    this.dog.renderMiss();
   }
 
   update() {
     this.duck.update();
+    this.dog.update();
     this.isWaveOver();
   }
 

@@ -7,60 +7,32 @@ class Duck {
     this.velX = 1 * roundCount;
     this.velY = 1 * roundCount;
     this.roundCount = roundCount;
-    this.hit = false;
     
     this.frameIndex = 0;
     this.tickCount = 0;
     this.ticksPerFrame = 4;
     this.dirCount = 0;
-
+    
     this.duckImage = new Image();
     this.duckImage.onload = () => this.duckImageReady = true;
     this.duckImage.src = "";
     this.direction = this.changeDir();
-
-    this.hitImage = new Image();
-    this.hitImage.onload = () => this.hitImageReady = true;
-    this.hitImage.src = "/Users/grady/Desktop/duckhunt/images/dog_single_duck.png";
-
-    this.missFrameIndex = 0;
-    this.missTickCount = 0;
-    this.missTicksPerFrame = 4;
-
-    this.missImage = new Image();
-    this.missImage.onload = () => this.missImageReady = true;
-    this.missImage.src = "/Users/grady/Desktop/duckhunt/images/dog_laugh.png";
-
-    this.aniFinish = false;
+    
+    this.hit = false;
+    this.aniOver = false;
   }
 
   render() {
     if (!this.duckImageReady) return;
-    if (this.isDuckFallen()) {
+    // if (this.isDuckFallen()) {
 
-    }
+    // }
     this.c.drawImage(
       this.duckImage, 
       this.frameIndex * 120 / 3, 0, 
       40, 40, 
       this.posX, this.posY, 
       70, 70
-    );
-
-    this.c.drawImage(
-      this.missImage, 
-      this.missFrameIndex * 120 / 2, 0,
-      60, 60, 
-      204, 238, 
-      111, 111
-    );
-
-    this.c.drawImage(
-      this.hitImage, 
-      0, 0,
-      60, 60, 
-      this.posX - 20, 238, 
-      111, 111
     );
   }
 
@@ -91,15 +63,6 @@ class Duck {
     }
     if (this.frameIndex > 2) {
       this.frameIndex = 0;
-    }
-
-    this.missTickCount++;
-    if (this.missTickCount > this.missTicksPerFrame) {
-      this.missTickCount = 0;
-      this.missFrameIndex++;
-    }
-    if (this.missFrameIndex > 1) {
-      this.missFrameIndex = 0;
     }
   }
 
@@ -139,22 +102,37 @@ class Duck {
     }
   }
 
-  left() { this.posX -= this.velX; }
-  right() { this.posX += this.velX; }
-  flyAway() { this.posY += this.velY; }
-  fallDown() { this.posY += this.velY; }
+  left() {
+    this.posX -= this.velX; 
+  }
+
+  right() { 
+    this.posX += this.velX; 
+  }
+
+  flyAway() { 
+    this.posY += this.velY; 
+  }
+
+  fallDown() { 
+    this.posY += this.velY; 
+  }
+
   topLeft() {
     this.posX -= this.velX;
     this.posY -= this.velY;
   }
+
   topRight() {
     this.posX += this.velX;
     this.posY -= this.velY;
   }
+
   bottomLeft() {
     this.posX -= this.velX;
     this.posY += this.velY;
   }
+
   bottomRight() {
     this.posX += this.velX;
     this.posY += this.velY;
@@ -170,19 +148,12 @@ class Duck {
   }
 
   isDuckFallen() {
-    return this.posY > 250;
-  }
-
-  dogAniOver() {
-
-  }
-
-  isAniOver() {
-    if (this.isDuckFallen() && this.dogAniOver()) {
-
+    if (this.posY > 250) {
+      this.aniOver = true;
+      return true;
     }
+    return false;
   }
-
 }
 
 module.exports = Duck;

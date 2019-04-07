@@ -4,12 +4,14 @@ const Scoreboard = require("./scoreboard.js");
 const Environment = require("./environment.js");
 const GameOverScreen = require("./game_over_screen.js");
 const Ducks = require("./ducks");
+const Dog = require("./dog.js");
 
 class Game {
   constructor(c) {
     this.c = c;
     this.roundCount = 1;
     
+    this.dog = new Dog(this.c);
     this.scoreboard = new Scoreboard(this.c);
     this.environment = new Environment(this.c);
     this.cross = new Cross(this.c, this.scoreboard);
@@ -27,6 +29,7 @@ class Game {
 
   update() {
     this.isGameOver();
+    this.dog.update();
     this.round.update();
     this.scoreboard.update();
     this.cross.update();
@@ -38,9 +41,11 @@ class Game {
   }
   
   render() {
-    console.log(`${this.roundCount}`);
     this.round.render();
     this.environment.render();
+    this.dog.renderWalk();
+    this.dog.renderSniff();
+    this.dog.renderJump();
     this.scoreboard.render();
     if (this.gameOver) {
       this.gameOverScreen.render();
