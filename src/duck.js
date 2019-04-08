@@ -165,12 +165,14 @@ class Duck {
   isFallFin() {
     if (this.posY > 300) {
       this.fallFin = true;
+      console.log(this.fallFin);
     }
   }
 
   isFlyFin() {
     if (this.posY < -40) {
       this.flyFin = true;
+      // console.log(this.flyFin);
     }
   }
 }

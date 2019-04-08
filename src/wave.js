@@ -1,5 +1,7 @@
 const Duck = require("./duck.js");
-const Dog = require("./dog.js");
+// const Dog = require("./dog.js");
+const WaveHitAni = require("./wave_hit_ani.js");
+const WaveMissAni = require("./wave_miss_ani.js");
 
 class Wave {
   constructor(c, cross, scoreboard, roundCount, waveCount) {
@@ -10,19 +12,24 @@ class Wave {
     this.waveCount = waveCount;
     this.waveOver = false;
     this.duck = new Duck(this.c, this.cross, this.roundCount, this.scoreboard);
-    this.dog = new Dog(this.c);
+    // this.dog = new Dog(this.c);
+    this.waveHitAni = new WaveHitAni(this.c);
+    this.waveMissAni = new WaveMissAni(this.c);
   }
 
   render() {
     this.duck.render();
-    if (this.duck.fallFin) this.dog.renderSmile();
-    if (this.duck.flyFin) this.dog.renderLaugh();
+    if (this.duck.fallFin) {
+      this.waveHitAni.render();
+    }
+    if (this.duck.flyFin) this.waveMissAni.render();
   }
 
   update() {
     this.duckHit();
     this.duck.update();
-    this.dog.update();
+    this.waveHitAni.update();
+    this.waveMissAni.update();
     this.isWaveOver();
   }
 
@@ -48,7 +55,7 @@ class Wave {
   }
 
   isWaveOver() {
-    if (this.duck.fallFin || this.duck.flyFin && this.dog.aniFin) {
+    if (this.duck.fallFin && this.waveHitAni.smileEndFin) {
       this.waveOver = true;
     }
   }
