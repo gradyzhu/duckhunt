@@ -3,8 +3,6 @@ class WaveHitAni {
     this.c = c;
     this.dogPosY = 308;
     // this.dogPosX = dogPosX;
-    
-    this.smileStartCount = 0;
     this.smilePauseCount = 0;
 
     this.smileStartFin = false;
@@ -18,7 +16,6 @@ class WaveHitAni {
 
   render() {
     if (!this.smileStartFin) {
-      this.smileStartCount++;
       this.dogPosY--;
     }
     if (this.smileStartFin) {

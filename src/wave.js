@@ -55,7 +55,9 @@ class Wave {
   }
 
   isWaveOver() {
-    if (this.duck.fallFin && this.waveHitAni.smileEndFin) {
+    if (
+      (this.duck.fallFin && this.waveHitAni.smileEndFin) ||
+      (this.duck.flyFin && this.waveMissAni.laughEndFin))  {
       this.waveOver = true;
     }
   }

@@ -1,13 +1,14 @@
 class WaveMissAni {
   constructor(c) {
     this.c = c;
-    this.dogPosY = 278;
+    this.dogPosY = 308;
 
-    this.laughStart = false;
-    this.laughPause = false;
-    this.laughFin = false;
+    this.laughStartFin = false;
+    this.laughPauseFin = false;
+    this.laughEndFin = false;
 
-    this.laughAniTickCount = 0;
+    this.laughPauseCount = 0;
+    this.laughTickCount = 0;
 
     this.laughFrameIndex = 0;
     this.laughTickCount = 0;
@@ -19,7 +20,12 @@ class WaveMissAni {
   }
 
   render() {
-    this.laughAniTickCount++;
+    if (!this.laughStartFin) {
+      this.dogPosY--;
+    }
+    if (this.laughStartFin) {
+      this.laughPauseCount++;
+    }
     this.c.drawImage(this.laughImage, 
       this.laughFrameIndex * 120 / 2, 0,
       60, 60, 
@@ -30,7 +36,7 @@ class WaveMissAni {
   update() {
     this.isLaughStartFin();
     this.isLaughPauseFin();
-    this.isLaughFin();
+    this.isLaughEndFin();
 
     this.laughTickCount++;
     if (this.laughTickCount > this.laughTicksPerFrame) {
@@ -42,41 +48,22 @@ class WaveMissAni {
     }
   }
 
-  //walk and sniff render functions
-  renderLaughAni() {
-    if (this.laughStart && this.dogPosY > 238) {
-      this.laughCount++;
-      this.dogPosY--;
-    }
-    if (this.laughPause && this.dogPosY < 238) {
-      this.dogPosY = 238;
-    }
-    if (this.laughStart && this.laughPause && !this.laughFin) {
-      this.dogPosY++;
-    }
-  }
-
   isLaughStartFin() {
-    if (this.laughStartCount > 20) {
+    if (this.dogPosY === 248) {
       this.laughStartFin = true;
     }
   }
 
   isLaughPauseFin() {
-    if (this.laughAniTickCount > 40) {
+    if (this.laughPauseCount > 30) {
       this.laughPauseFin = true;
+      this.dogPosY++;
     }
   }
 
-  isLaughFin() {
-    if (this.laughAniTickCount > 60) {
-      this.laughFin = true;
-    }
-  }
-
-  isReactionFin() {
-    if (this.laughFin) {
-      this.reactionFin = true;
+  isLaughEndFin() {
+    if (this.dogPosY === 310) {
+      this.laughEndFin = true;
     }
   }
 }
