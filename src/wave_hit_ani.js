@@ -38,16 +38,13 @@ class WaveHitAni {
   }
 
   isSmileStartFin() {
-    if (this.dogPosY === 248) {
-      this.smileStartFin = true;
-    }
+    if (this.dogPosY === 248) this.smileStartFin = true;
   }
 
   isSmilePauseFin() {
     if (this.smilePauseCount > 30) {
       this.smilePauseFin = true;
-      this.dogPosY++;
-    }
+      this.dogPosY++;}
   }
 
   isSmileEndFin() {
