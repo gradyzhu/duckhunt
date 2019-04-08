@@ -16,7 +16,7 @@ class WaveHitAni {
 
   render() {
     if (!this.smileStartFin) {
-      this.dogPosY--;
+      this.dogPosY-=3;
     }
     if (this.smileStartFin) {
       this.smilePauseCount++;
@@ -41,11 +41,11 @@ class WaveHitAni {
   isSmilePauseFin() {
     if (this.smilePauseCount > 30) {
       this.smilePauseFin = true;
-      this.dogPosY++;}
+      this.dogPosY+=3;}
   }
 
   isSmileEndFin() {
-    if (this.dogPosY === 310) this.smileEndFin = true;
+    if (this.dogPosY > 310) this.smileEndFin = true;
   }
 }
 

@@ -4,22 +4,26 @@ const Scoreboard = require("./scoreboard.js");
 const Environment = require("./environment.js");
 const GameOverScreen = require("./game_over_screen.js");
 const Ducks = require("./ducks");
-const Dog = require("./dog.js");
+const GameStartAni = require("./game_start_ani");
+const RoundScreen = require("./round_screen");
 
 class Game {
   constructor(c) {
     this.c = c;
     this.roundCount = 1;
-    
     this.start = true;
-
-    this.dog = new Dog(this.c);
+    
+    this.gameStartAni = new GameStartAni(this.c);
+    this.roundScreen = new RoundScreen(this.c, this.roundCount);
     this.scoreboard = new Scoreboard(this.c);
     this.environment = new Environment(this.c);
     this.cross = new Cross(this.c, this.scoreboard);
     this.round = new Round(this.c, this.roundCount, this.cross, this.scoreboard);
+
+    this.isNewRound = false;
     this.gameOverScreen = new GameOverScreen(this.c);
     this.loop = this.loop.bind(this);
+
     this.gameOver = false;
   }
 
@@ -32,7 +36,7 @@ class Game {
   update() {
     this.isStart();
     this.isGameOver();
-    this.dog.update();
+    this.gameStartAni.update();
     this.round.update();
     this.scoreboard.update();
     this.cross.update();
@@ -41,23 +45,43 @@ class Game {
       this.roundCount++;
       this.newDucks();
       this.newRound();
+      this.newRoundScreen();
     }
+    this.roundScreen.update();
   }
   
   render() {
     this.environment.render();
-    if (this.gameOver) this.gameOverScreen.render();
-    if (this.start) this.dog.renderStartAni();
-    if (!this.start && !this.gameOver) {
-        this.round.render();
-        this.environment.render();
+
+    if (this.start) {
+      this.gameStartAni.render();
+      this.isNewRound = true;
     }
+
+    if (!this.start && !this.gameOver) {
+      this.round.render();
+      this.environment.render();
+    }
+    
+    if (this.isNewRound) {
+      this.roundScreen.render();
+      if (this.roundScreen.aniFin) {
+        this.isNewRound = false;
+      }
+    }
+
     this.scoreboard.render();
+    if (this.gameOver) {this.gameOverScreen.render();}
     this.cross.render();
   }
   
+  newRoundScreen() {
+    this.roundScreen = new RoundScreen(this.c, this.roundCount);
+  }
+
   newRound() {
     this.round = new Round(this.c, this.roundCount, this.cross, this.scoreboard);
+    this.isNewRound = true;
   }
 
   newDucks() {
@@ -65,10 +89,9 @@ class Game {
   }
 
   isStart() {
-    if (this.dog.startAni.jumpEndFin) this.start = false;
-  }
-
-  isPlay() {
+    if (this.gameStartAni.jumpEndFin) {
+      this.start = false;
+    }
   }
   
   isGameOver() {
@@ -77,13 +100,6 @@ class Game {
       this.gameOver = true;
     } 
   }
-  
-  // start() {
-  //   while (!this.gameOver) {
-  //     this.newRound();
-  //     this.round.play();
-  //   }
-  // }
 }
 
 module.exports = Game;

@@ -4,7 +4,6 @@ class GameOverScreen {
   }
 
   render() {
-    this.c.fillText("GAME OVER", 200, 0); 
     this.c.fillStyle = 'black';
     this.c.fillRect(132, 100, 250, 100);
 

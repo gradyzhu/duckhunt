@@ -5,6 +5,8 @@ class Duck {
     this.scoreboard = scoreboard;
     this.posX = Math.random() * 512;
     this.posY = 200;
+    // this.velX = 1;
+    // this.velY = 1;
     this.velX = 1 * roundCount;
     this.velY = 1 * roundCount;
     this.roundCount = roundCount;
@@ -165,14 +167,12 @@ class Duck {
   isFallFin() {
     if (this.posY > 300) {
       this.fallFin = true;
-      console.log(this.fallFin);
     }
   }
 
   isFlyFin() {
     if (this.posY < -40) {
       this.flyFin = true;
-      // console.log(this.flyFin);
     }
   }
 }

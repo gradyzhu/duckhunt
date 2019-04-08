@@ -1,4 +1,4 @@
-class StartAni {
+class GameStartAni {
   constructor(c) {
     this.c = c;
     this.dogPosX = 0;
@@ -182,7 +182,6 @@ class StartAni {
   isSniff1Fin() {if (this.sniff1Count > 40) this.sniff1Fin = true;}
   isWalk2Fin() {if (this.walk2Count > 40) this.walk2Fin = true;}
   isSniff2Fin() {if (this.sniff2Count > 40) this.sniff2Fin = true;}
-
   isShockFin() {
     if (this.shockCount > 20) {
       this.shockFin = true;
@@ -200,4 +199,4 @@ class StartAni {
   isJumpEndFin() {if (this.jumpEndCount > 7) this.jumpEndFin = true;}
 }
 
-module.exports = StartAni;
+module.exports = GameStartAni;

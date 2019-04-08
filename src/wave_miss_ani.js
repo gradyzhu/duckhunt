@@ -21,7 +21,7 @@ class WaveMissAni {
 
   render() {
     if (!this.laughStartFin) {
-      this.dogPosY--;
+      this.dogPosY-=3;
     }
     if (this.laughStartFin) {
       this.laughPauseCount++;
@@ -49,22 +49,18 @@ class WaveMissAni {
   }
 
   isLaughStartFin() {
-    if (this.dogPosY === 248) {
-      this.laughStartFin = true;
-    }
+    if (this.dogPosY === 248) {this.laughStartFin = true;}
   }
 
   isLaughPauseFin() {
     if (this.laughPauseCount > 30) {
       this.laughPauseFin = true;
-      this.dogPosY++;
+      this.dogPosY+=3;
     }
   }
 
   isLaughEndFin() {
-    if (this.dogPosY === 310) {
-      this.laughEndFin = true;
-    }
+    if (this.dogPosY > 310) {this.laughEndFin = true;}
   }
 }
 

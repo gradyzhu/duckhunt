@@ -1,5 +1,4 @@
 const Duck = require("./duck.js");
-// const Dog = require("./dog.js");
 const WaveHitAni = require("./wave_hit_ani.js");
 const WaveMissAni = require("./wave_miss_ani.js");
 
@@ -12,7 +11,6 @@ class Wave {
     this.waveCount = waveCount;
     this.waveOver = false;
     this.duck = new Duck(this.c, this.cross, this.roundCount, this.scoreboard);
-    // this.dog = new Dog(this.c);
     this.waveHitAni = new WaveHitAni(this.c);
     this.waveMissAni = new WaveMissAni(this.c);
   }
@@ -39,9 +37,9 @@ class Wave {
 
   updateScore() {
     if (this.roundCount === 1) {
-      this.scoreboard.score.points += 1000;
+      this.scoreboard.score.points += 500;
     } else {
-      this.scoreboard.score.points += 1000 + 500 * (this.roundCount - 1);
+      this.scoreboard.score.points += 500 + 500 * (this.roundCount - 1);
     }
   }
 
