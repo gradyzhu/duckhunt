@@ -9,7 +9,7 @@ class Wave {
     this.roundCount = roundCount;
     this.waveCount = waveCount;
     this.waveOver = false;
-    this.duck = new Duck(this.c, this.cross, this.roundCount);
+    this.duck = new Duck(this.c, this.cross, this.roundCount, this.scoreboard);
     this.dog = new Dog(this.c);
   }
 
@@ -20,6 +20,7 @@ class Wave {
   }
 
   update() {
+    this.duckHit();
     this.duck.update();
     this.dog.update();
     this.isWaveOver();
@@ -39,26 +40,17 @@ class Wave {
 
   duckHit() {
     if (this.duck.hit) {
+      this.duck.hit = false;
       this.updateDucks();
       this.waveCount = this.waveCount + 1;
       this.updateScore();
-      return true;
     }
-    return false;
-  }
-
-  noShots() {
-    return this.scoreboard.shots.count === 0;
   }
 
   isWaveOver() {
-    if (this.duckHit() || this.noShots()) {
+    if (this.duck.fallFin || this.duck.flyFin) {
       this.waveOver = true;
     }
-  }
-  
-  resetShots() {
-    this.scoreboard.shots.count = 3;
   }
 }
 module.exports = Wave;

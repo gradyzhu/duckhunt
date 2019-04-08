@@ -23,8 +23,7 @@ class Dog {
   }
 
   renderHit() {
-    this.c.drawImage(
-      this.hitImage, 
+    this.c.drawImage(this.hitImage, 
       0, 0,
       60, 60, 
       280, 238, 
@@ -32,8 +31,7 @@ class Dog {
   }
 
   renderMiss() {
-    this.c.drawImage(
-      this.missImage, 
+    this.c.drawImage(this.missImage, 
       this.missFrameIndex * 120 / 2, 0,
       60, 60, 
       204, 238, 

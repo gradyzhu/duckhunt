@@ -1,7 +1,8 @@
 class Duck {
-  constructor(c, cross, roundCount) {
+  constructor(c, cross, roundCount, scoreboard) {
     this.c = c;
     this.cross = cross;
+    this.scoreboard = scoreboard;
     this.posX = Math.random() * 512;
     this.posY = 200;
     this.velX = 1 * roundCount;
@@ -19,14 +20,12 @@ class Duck {
     this.direction = this.changeDir();
     
     this.hit = false;
-    this.aniOver = false;
+    this.fallFin = false;
+    this.flyFin = false;
   }
 
   render() {
     if (!this.duckImageReady) return;
-    // if (this.isDuckFallen()) {
-
-    // }
     this.c.drawImage(
       this.duckImage, 
       this.frameIndex * 120 / 3, 0, 
@@ -37,25 +36,14 @@ class Duck {
   }
 
   update() {
-    // change direction after 10 counts
-    this.dirCount++; 
-    if (
-      this.dirCount > 10 &&
-      this.direction !== "fall"
-      ) {
-        this.direction = this.changeDir();
-        this.dirCount = 0;
-    }
-  // change position based on random direction
-    if (this.direction === "fall") this.fallDown();
-    if (this.direction === "left") this.left();
-    if (this.direction === "right") this.right();
-    if (this.direction === "top-left") this.topLeft();
-    if (this.direction === "top-right") this.topRight();
-    if (this.direction === "bot-left") this.bottomLeft();
-    if (this.direction === "bot-right") this.bottomRight();
-    // increase frame index every tickCount number of updates.
-    // when frame index hits 3, it will reset back to the first frame.
+    this.isFallFin();
+    this.isFlyFin();
+    this.updateDir();
+    this.updatePos();
+    this.updateFly();
+  }
+  
+  updateFly() {
     this.tickCount++;
     if (this.tickCount > this.ticksPerFrame) {
       this.tickCount = 0;
@@ -65,7 +53,29 @@ class Duck {
       this.frameIndex = 0;
     }
   }
+  
+  updateDir() {
+    this.dirCount++; 
+    if (
+      this.dirCount > 10 &&
+      this.direction !== "fall"
+      ) {
+        this.direction = this.changeDir();
+        this.dirCount = 0;
+    }
+  }
 
+  updatePos() {
+    if (this.direction === "escape") this.escape();
+    if (this.direction === "fall") this.fallDown();
+    if (this.direction === "left") this.left();
+    if (this.direction === "right") this.right();
+    if (this.direction === "top-left") this.topLeft();
+    if (this.direction === "top-right") this.topRight();
+    if (this.direction === "bot-left") this.bottomLeft();
+    if (this.direction === "bot-right") this.bottomRight();
+  }
+  
   changeDir() {
     if (this.collision()) {
       this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fall_down.png";
@@ -73,7 +83,12 @@ class Duck {
       this.direction = "fall";
       return "fall";
     }
-    if (this.direction === "escape") return "escape";
+
+    if (this.scoreboard.shots.count === 0) {
+      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fly_up.png";
+      this.direction = "escape";
+      return "escape";
+    }
 
     let num = Math.random();
     if ( num < 0.1667 ) {
@@ -110,8 +125,8 @@ class Duck {
     this.posX += this.velX; 
   }
 
-  flyAway() { 
-    this.posY += this.velY; 
+  escape() {
+    this.posY -= this.velY * 3; 
   }
 
   fallDown() { 
@@ -147,12 +162,16 @@ class Duck {
     );
   }
 
-  isDuckFallen() {
-    if (this.posY > 250) {
-      this.aniOver = true;
-      return true;
+  isFallFin() {
+    if (this.posY > 300) {
+      this.fallFin = true;
     }
-    return false;
+  }
+
+  isFlyFin() {
+    if (this.posY < -40) {
+      this.flyFin = true;
+    }
   }
 }
 
