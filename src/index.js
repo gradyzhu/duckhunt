@@ -9,5 +9,3 @@ document.addEventListener("DOMContentLoaded", (event) => {
   let game = new Game(c);
   game.loop();
 });
-
-console.log("webpack is working!");

@@ -4,7 +4,7 @@ class Environment {
     this.c = c;
     this.image = new Image();
     this.image.onload = () => this.imageReady = true;
-    this.image.src = "../images/duckhunt-static-1.png";
+    this.image.src = "/Users/grady/Desktop/duckhunt/images/duckhunt-static-1.png";
   }
 
   render() {
