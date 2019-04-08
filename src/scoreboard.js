@@ -23,6 +23,14 @@ class Scoreboard {
     this.c.fillText(`R=${this.roundCount}`, 89.5, 400);
   }
 
+  renderPts(posX, posY) {
+    this.c.textAlign = "center"; 
+    this.c.fillStyle = "white";
+    this.c.font = "12px Pixel Emulator";
+    this.c.fillText(`${this.roundCount * 500}`, posX, posY);
+    console.log(this.roundCount);
+  }
+
   update() {
     this.ducks.update();
   }

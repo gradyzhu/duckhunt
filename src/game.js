@@ -42,6 +42,7 @@ class Game {
     this.cross.update();
     
     if (this.round.roundOver) {
+      this.scoreboard.roundCount++;
       this.roundCount++;
       this.newDucks();
       this.newRound();

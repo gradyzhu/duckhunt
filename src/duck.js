@@ -5,12 +5,13 @@ class Duck {
     this.scoreboard = scoreboard;
     this.posX = Math.random() * 512;
     this.posY = 200;
-    // this.velX = 1;
-    // this.velY = 1;
     this.velX = 1 * roundCount;
     this.velY = 1 * roundCount;
     this.roundCount = roundCount;
     
+    this.killPosX = 0;
+    this.killPosY = 0;
+
     this.frameIndex = 0;
     this.tickCount = 0;
     this.ticksPerFrame = 4;
@@ -22,6 +23,7 @@ class Duck {
     this.direction = this.changeDir();
     
     this.hit = false;
+    this.falling = false;
     this.fallFin = false;
     this.flyFin = false;
   }
@@ -35,6 +37,10 @@ class Duck {
       this.posX, this.posY, 
       70, 70
     );
+
+    if (this.falling) {
+      this.scoreboard.renderPts(this.killPosX, this.killPosY);
+    }
   }
 
   update() {
@@ -80,6 +86,10 @@ class Duck {
   
   changeDir() {
     if (this.collision()) {
+      this.falling = true;
+      this.killPosX = this.cross.clickPosX;
+      this.killPosY = this.cross.clickPosY;
+
       this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fall_down.png";
       this.hit = true;
       this.direction = "fall";
