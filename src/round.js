@@ -1,5 +1,4 @@
 const Wave = require("./wave.js");
-const Ducks = require("./ducks.js");
 
 class Round {
   constructor(c, roundCount, cross, scoreboard) {

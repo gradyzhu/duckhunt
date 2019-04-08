@@ -15,8 +15,8 @@ class Wave {
 
   render() {
     this.duck.render();
-    // this.dog.renderHit();
-    // this.dog.renderMiss();
+    if (this.duck.fallFin) this.dog.renderSmile();
+    if (this.duck.flyFin) this.dog.renderLaugh();
   }
 
   update() {
@@ -48,7 +48,7 @@ class Wave {
   }
 
   isWaveOver() {
-    if (this.duck.fallFin || this.duck.flyFin) {
+    if (this.duck.fallFin || this.duck.flyFin && this.dog.aniFin) {
       this.waveOver = true;
     }
   }

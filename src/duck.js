@@ -126,11 +126,11 @@ class Duck {
   }
 
   escape() {
-    this.posY -= this.velY * 3; 
+    this.posY -= 7; 
   }
 
   fallDown() { 
-    this.posY += this.velY; 
+    this.posY += 3; 
   }
 
   topLeft() {

@@ -36,9 +36,10 @@ class Game {
     this.round.update();
     this.scoreboard.update();
     this.cross.update();
+    
     if (this.round.roundOver) {
       this.roundCount++;
-      this.newScoreboard();
+      this.newDucks();
       this.newRound();
     }
   }
@@ -59,7 +60,7 @@ class Game {
     this.round = new Round(this.c, this.roundCount, this.cross, this.scoreboard);
   }
 
-  newScoreboard() {
+  newDucks() {
     this.scoreboard.ducks = new Ducks(this.c);
   }
 

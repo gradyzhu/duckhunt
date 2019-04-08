@@ -18,10 +18,6 @@ class Shots {
       );
     }
   }
-
-  update() {
-
-  }
 }
 
 module.exports = Shots;

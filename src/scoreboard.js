@@ -1,7 +1,6 @@
 const Score = require("./score.js");
 const Shots = require("./shots");
 const Ducks = require("./ducks");
-const Round = require("./round");
 
 class Scoreboard {
   constructor(c) {
@@ -16,10 +15,15 @@ class Scoreboard {
     this.score.render();
     this.shots.render();
     this.ducks.render();
+
+    this.c.fillStyle = "black";
+    this.c.fillRect(48,384,47,21.5);
+    this.c.fillStyle = "#C5F652";
+    this.c.font = "16px Pixel Emulator";
+    this.c.fillText(`R=${this.roundCount}`, 89.5, 400);
   }
 
   update() {
-    this.shots.update();
     this.ducks.update();
   }
 }
