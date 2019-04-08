@@ -16,7 +16,7 @@ class WaveMissAni {
 
     this.laughImage = new Image();
     this.laughImage.onload = () => this.laughImageReady = true;
-    this.laughImage.src = "/Users/grady/Desktop/duckhunt/images/dog_laugh.png";
+    this.laughImage.src = "images/dog_laugh.png";
   }
 
   render() {

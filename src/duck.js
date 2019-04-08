@@ -90,41 +90,41 @@ class Duck {
       this.killPosX = this.cross.clickPosX;
       this.killPosY = this.cross.clickPosY;
 
-      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fall_down.png";
+      this.duckImage.src = "images/fall_down.png";
       this.hit = true;
       this.direction = "fall";
       return "fall";
     }
 
     if (this.scoreboard.shots.count === 0) {
-      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fly_up.png";
+      this.duckImage.src = "images/fly_up.png";
       this.direction = "escape";
       return "escape";
     }
 
     let num = Math.random();
     if ( num < 0.1667 ) {
-      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fly_left.png";
+      this.duckImage.src = "images/fly_left.png";
       return "left";
     }
     if ( num > 0.1667 && num < 0.3333 ) {
-      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fly_right.png";
+      this.duckImage.src = "images/fly_right.png";
       return "right";
     }
     if ( num > 0.3333 && num < 0.50 ) {
-      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fly_top_left.png";
+      this.duckImage.src = "images/fly_top_left.png";
       return "top-left";
     }
     if ( num > 0.50 && num < 0.667 ) {
-      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fly_top_right.png";
+      this.duckImage.src = "images/fly_top_right.png";
       return "top-right";
     }
     if ( num > 0.667 && num < 0.833 ) {
-      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fly_top_left.png";
+      this.duckImage.src = "images/fly_top_left.png";
       return "bot-left";
     }
     if ( num > 0.833 && num < 1 ) {
-      this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/fly_top_right.png";
+      this.duckImage.src = "images/fly_top_right.png";
       return "bot-right";
     }
   }

@@ -11,7 +11,7 @@ class WaveHitAni {
 
     this.smileImage = new Image();
     this.smileImage.onload = () => this.smileImageReady = true;
-    this.smileImage.src = "/Users/grady/Desktop/duckhunt/images/dog_single_duck.png";
+    this.smileImage.src = "images/dog_single_duck.png";
   }
 
   render() {

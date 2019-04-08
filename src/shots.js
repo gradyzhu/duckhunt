@@ -5,7 +5,7 @@ class Shots {
 
     this.shotImage = new Image();
     this.shotImage.onload = () => this.imageReady = true;
-    this.shotImage.src = "/Users/grady/Desktop/duckhunt/images/shot.png";
+    this.shotImage.src = "images/shot.png";
   }
 
   render() {

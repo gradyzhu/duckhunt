@@ -13,11 +13,11 @@ class Ducks {
 
     this.duckImage = new Image();
     this.duckImage.onload = () => this.duckImageReady = true;
-    this.duckImage.src = "/Users/grady/Desktop/duckhunt/images/missed_duck.png";
+    this.duckImage.src = "images/missed_duck.png";
 
     this.hitDuckImage = new Image();
     this.hitDuckImage.onload = () => this.hitDuckImageReady = true;
-    this.hitDuckImage.src = "/Users/grady/Desktop/duckhunt/images/hit_duck.png";
+    this.hitDuckImage.src = "images/hit_duck.png";
   }
   
   render() {

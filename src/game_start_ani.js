@@ -24,7 +24,7 @@ class GameStartAni {
 
     this.sniffImage = new Image();
     this.sniffImage.onload = () => this.sniffImageReady = true;
-    this.sniffImage.src = "/Users/grady/Desktop/duckhunt/images/dog_sniff.png";
+    this.sniffImage.src = "images/dog_sniff.png";
 
     this.walkFrameIndex = 0;
     this.walkTickCount = 0;
@@ -32,7 +32,7 @@ class GameStartAni {
 
     this.walkImage = new Image();
     this.walkImage.onload = () => this.walkImageReady = true;
-    this.walkImage.src = "/Users/grady/Desktop/duckhunt/images/dog_walk.png";
+    this.walkImage.src = "images/dog_walk.png";
 
     //jump
     this.shockFin = false;
@@ -46,7 +46,7 @@ class GameStartAni {
 
     this.jumpImage = new Image();
     this.jumpImage.onload = () => this.jumpImageReady = true;
-    this.jumpImage.src = "/Users/grady/Desktop/duckhunt/images/dog_jump.png";
+    this.jumpImage.src = "images/dog_jump.png";
   }
 
   render() {
