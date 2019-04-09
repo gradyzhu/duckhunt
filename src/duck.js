@@ -34,11 +34,13 @@ class Duck {
     this.fallDuckImage.onload = () => this.fallDuckImageReady = true;
     this.fallDuckImage.src = "images/fall_down.png";
 
+    this.splatCount = 0;
     this.hitDuckImage = new Image();
-    this.hitDuckImage.onload = () => this.flyDuckImageReady = true;
+    this.hitDuckImage.onload = () => this.hitDuckImageReady = true;
     this.hitDuckImage.src = "images/fly_hit.png";
     
     this.hit = false;
+    this.splatFin = false;
     this.falling = false;
     this.fallFin = false;
     this.flyFin = false;
@@ -56,7 +58,13 @@ class Duck {
     if (!this.fallDuckImageReady) return;
 
     this.renderFly();
-    if (this.falling) {
+
+    if (this.falling && !this.splatFin) {
+      this.posY = this.posY;
+      this.splatCount++;
+      this.renderSplat();
+    }
+    if (this.falling && this.splatFin) {
       this.renderFall();
     }
   }
@@ -72,22 +80,23 @@ class Duck {
 
   renderFall() {
     this.scoreboard.renderPts(this.killPosX, this.killPosY);
-      this.c.drawImage(this.fallDuckImage, 
-        this.fallFrameIndex * 72 / 2, 0, 
-        36, 36, 
-        this.posX, this.posY, 
-        70, 70
-      );
-  }
-
-  renderHit() {
-    this.c.drawImage(this.hitDuckImage, 
-      0, 0, 36, 36, 
-      this.killPosX, this.killPosY, 
+    this.c.drawImage(this.fallDuckImage, 
+      this.fallFrameIndex * 72 / 2, 0, 
+      36, 36, 
+      this.posX, this.posY, 
       70, 70
     );
   }
-  
+
+  renderSplat() {
+    this.posY -= 3;
+    this.c.drawImage(this.hitDuckImage, 
+      0, 0, 36, 36, 
+      this.posX, this.posY, 
+      70, 70
+    );
+  }
+
   update() {
     this.randomizeDirCountMax();
     this.isTouchingEdge();
@@ -97,7 +106,7 @@ class Duck {
     this.updateDir();
     this.updatePos();
     this.updateFly();
-
+    this.isSplatFin();
   }
   
   updateFly() {
@@ -265,6 +274,12 @@ class Duck {
   isFlyFin() {
     if (this.posY < -75) {
       this.flyFin = true;
+    }
+  }
+
+  isSplatFin() {
+    if (this.splatCount > 20) {
+      this.splatFin = true;
     }
   }
 }
