@@ -13,12 +13,6 @@ class Round {
     this.roundOver = false;
   }
 
-  start() {
-    while (!this.roundOver) {
-      
-    }
-  }
-
   render() {
     this.wave.render();
   }
@@ -44,7 +38,7 @@ class Round {
       this.roundOver = true;
     }
   }
-    
+  
   resetShots() {
     this.scoreboard.shots.count = 3;
   }

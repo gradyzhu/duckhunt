@@ -24,13 +24,12 @@ class Ducks {
     if (!this.duckImageReady) return;
     if (!this.hitDuckImageReady) return;
 
-    // this.arr[this.waveCount]
-    // this.c.beginPath();
-    // this.c.moveTo(this.triPos1X + this.waveCount * 16, 395);
-    // this.c.lineTo(this.triPos2X + this.waveCount * 16, 395);
-    // this.c.lineTo(this.triPos3X + this.waveCount * 16, 405);
-    // this.c.fillStyle = "#C5F652";
-    // this.c.fill();
+    this.c.beginPath();
+    this.c.moveTo(this.triPos1X + this.waveCount * 16, 395);
+    this.c.lineTo(this.triPos2X + this.waveCount * 16, 395);
+    this.c.lineTo(this.triPos3X + this.waveCount * 16, 405);
+    this.c.fillStyle = "white";
+    this.c.fill();
 
     for (let i = 0; i < this.arr.length; i++) {
       if (this.arr[i] === 0) {

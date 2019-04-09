@@ -48,6 +48,7 @@ class Game {
       this.newRound();
       this.newRoundScreen();
     }
+    
     this.roundScreen.update();
   }
   
