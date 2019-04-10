@@ -28,7 +28,6 @@ class Scoreboard {
     this.c.fillStyle = "white";
     this.c.font = "12px Pixel Emulator";
     this.c.fillText(`${this.roundCount * 500}`, posX, posY);
-    console.log(this.roundCount);
   }
 
   update() {

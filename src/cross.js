@@ -7,6 +7,9 @@ class Cross {
     this.shots = scoreboard.shots;
     this.clickPosX = 1000;
     this.clickPosY = 1000;
+    this.hit = false;
+    this.falling = false;
+    this.flyAway = false;
 
     window.addEventListener('mousemove', event => {
       var bounds = this.c.canvas.getBoundingClientRect();
@@ -16,8 +19,10 @@ class Cross {
     });
 
     window.addEventListener('click', () => {
-      this.shots.count--;
-      this.clickCount++;
+      if (this.hit || this.flyAway) return;
+      if (this.shots.count > 0) {
+        this.shots.count--;
+      }
       this.clickPosX = this.posX;
       this.clickPosY = this.posY;
     });

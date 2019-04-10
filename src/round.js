@@ -25,8 +25,15 @@ class Round {
       this.waveCount++;
       this.scoreboard.ducks.waveCount++;
       this.resetShots();
+      this.resetCounters();
       this.newWave();
     }
+  }
+
+  resetCounters() {
+    this.cross.hit = false;
+    this.cross.falling = false;
+    this.cross.flyAway = false;
   }
 
   newWave() {

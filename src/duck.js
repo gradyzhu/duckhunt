@@ -39,6 +39,10 @@ class Duck {
     this.hitDuckImage.onload = () => this.hitDuckImageReady = true;
     this.hitDuckImage.src = "images/fly_hit.png";
     
+    this.escapeDuckImage = new Image();
+    this.escapeDuckImage.onload = () => this.escapeDuckImageReady = true;
+    this.escapeDuckImage.src = "images/fly_up.png";
+    
     this.hit = false;
     this.splatFin = false;
     this.falling = false;
@@ -56,19 +60,27 @@ class Duck {
   render() {
     if (!this.duckImageReady) return;
     if (!this.fallDuckImageReady) return;
+    if (!this.hitDuckImageReady) return;
 
     if (this.initialBoost) {
       this.posY -= 5;
       this.initialBoostCount++;
     }
 
-    this.renderFly();
+    if (!this.falling && !this.hit && !this.flyAway) {
+      this.renderFly();
+    }
 
-    if (this.falling && !this.splatFin) {
+    if (this.flyAway) {
+      this.renderFlyAway();
+    }
+
+    if (this.falling && !this.splatFin && !this.flyAway) {
       this.posY = this.posY;
       this.splatCount++;
       this.renderSplat();
     }
+
     if (this.falling && this.splatFin) {
       this.renderFall();
     }
@@ -81,17 +93,23 @@ class Duck {
       this.posX, this.posY, 
       70, 70
     );
-
-    if (this.flyAway) {
-      this.c.font = "20.5px Pixel Emulator";
-      this.c.fillStyle = "white";
-      this.c.textAlign = "center"; 
-      this.c.fillText(`FLY AWAY`, 256, 148);
-    }
   }
   
+  renderFlyAway() {
+    this.c.drawImage(this.escapeDuckImage, 
+      this.frameIndex * 108 / 3, 0, 
+      36, 36, 
+      this.posX, this.posY, 
+      70, 70
+    );
+    this.c.font = "20.5px Pixel Emulator";
+    this.c.fillStyle = "white";
+    this.c.textAlign = "center"; 
+    this.c.fillText(`FLY AWAY`, 256, 148);
+  }
 
   renderFall() {
+    if (this.flyAway) return;
     this.scoreboard.renderPts(this.killPosX, this.killPosY);
     this.c.drawImage(this.fallDuckImage, 
       this.fallFrameIndex * 72 / 2, 0, 
@@ -118,10 +136,10 @@ class Duck {
     this.isFallFin();
     this.isFlyFin();
     this.isHit();
-    this.isFlyAway();
     if (!this.hit) this.updateDir();
     this.updatePos();
     this.updateFly();
+    this.isFlyAway();
     this.isSplatFin();
     this.isInitialBoost();
   }
@@ -163,7 +181,7 @@ class Duck {
     if (this.direction === "bot-left") this.bottomLeft();
     if (this.direction === "bot-right") this.bottomRight();
   }
-  
+
   isTouchingEdge() {
     if (!this.falling) {
       if (this.posY > 335) this.touchingBottomEdge = true;
@@ -255,10 +273,9 @@ class Duck {
     if (this.collision()) {
       this.killPosX = this.cross.clickPosX;
       this.killPosY = this.cross.clickPosY;
-      this.cross.clickPosX = 1000;
-      this.cross.clickPosY = 1000;
       this.hit = true;
       this.falling = true;
+      this.cross.hit = true;
 
       this.duckImage.src = "";
       this.direction = "fall";
@@ -267,10 +284,11 @@ class Duck {
   }
 
   isFlyAway() {
-    if (this.scoreboard.shots.count <= 0) {
+    if (this.scoreboard.shots.count === 0) {
       this.duckImage.src = "images/fly_up.png";
       this.direction = "escape";
       this.flyAway = true;
+      this.cross.flyAway = true;
       return "escape";
     }
   }
