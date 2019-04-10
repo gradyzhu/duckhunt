@@ -144,16 +144,16 @@ p {
 }
 
 .test2 {
-  margin-top: 20px;
+  transform: translate(0px, -10px);
   width: 230px;
-
 }
 
 .skew{
   transform: skewY(-8deg);
 }
-.test {
-  margin-bottom: 40px;
+
+.duck-instructions {
+  transform: translate(0px, -35px);
 }
 
 .explosion-1 {
@@ -162,10 +162,15 @@ p {
 }
 .explosion-2 {
   position: absolute;
-  transform: translate(75px, 230px) scale(.65, .65) rotate(-90deg);
+  transform: translate(75px, 245px) scale(.65, .65) rotate(-90deg);
 }
 .explosion-3 {
   position: absolute;
   transform: translate(-400px, 100px) scale(.8, .8) rotate(-180deg);
-  /* z-index: -2;/ */
+}
+
+.duck {
+  transform: scale(.8, .8);
+  margin-bottom: -20px;
+  /* background-color: gray; */
 }
