@@ -1,4 +1,3 @@
-
 class Environment {
   constructor(c) {
     this.c = c;

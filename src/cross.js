@@ -9,8 +9,6 @@ class Cross {
     this.clickPosY = 1000;
 
     window.addEventListener('mousemove', event => {
-      this.clickPosX = 1000;
-      this.clickPosY = 1000;
       var bounds = this.c.canvas.getBoundingClientRect();
       this.posX = event.clientX - bounds.left;
       this.posY = event.clientY - bounds.top;
@@ -26,6 +24,8 @@ class Cross {
   }
 
   render() {
+    this.clickPosX = 1000;
+    this.clickPosY = 1000;
     this.c.beginPath();
     this.c.arc(this.posX, this.posY, this.radius, 0, 2 * Math.PI);
     this.c.stroke();

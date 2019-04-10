@@ -20,7 +20,9 @@ class Wave {
     if (this.duck.fallFin) {
       this.waveHitAni.render();
     }
-    if (this.duck.flyFin) this.waveMissAni.render();
+    if (this.duck.flyFin) {
+      this.waveMissAni.render();
+    }
   }
 
   update() {

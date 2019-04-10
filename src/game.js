@@ -55,7 +55,7 @@ class Game {
   render() {
     this.environment.render();
 
-    if (this.start) {
+    if (this.start && ) {
       this.gameStartAni.render();
       this.isNewRound = true;
     }
@@ -102,6 +102,7 @@ class Game {
       this.gameOver = true;
     } 
   }
+
 }
 
 module.exports = Game;
