@@ -6,10 +6,10 @@ A remake of the popular 1984 shooter game DuckHunt.  The objective of the game i
 
 Ducks appear one at a time and the player is granted 3 shots to shoot down the duck. The player must shoot 6+ ducks to advance to the next round.  Failure to do so will result in a game over.  With each subsequent round, ducks will increase in speed and be worth more points when shot.
 
-
 ## Technologies
 
-* HTML5 Canvas, CSS
+* HTML5 Canvas 
+* CSS
 * Javascript (ES6)
 
 ## Features
@@ -27,15 +27,56 @@ I quickly realized that determining the precise X and Y dimensions on a spritesh
 ![dog_walk](images/dog_sniff.png)
 ![dog_walk](images/dog_jump.png)
 
-### Scoring System
+Using RequestAnimationFrame, I call the Game's loop function and recursively render and update Canvas.
 
 ### Round Logic
 
-### Wave Logic
+### Scoring System
+
+With Ducks, Waves, and Rounds constantly being created and destroyed based on game logic, I required a way to store and update class agnostic variables over the duration of a single Game instance.  The Scoreboard class tracks the players point total, round count, ducks shot per round, and shots per wave.
+
+```javascript
+const Score = require("./score.js");
+const Shots = require("./shots");
+const Ducks = require("./ducks");
+
+class Scoreboard {
+  constructor(c) {
+    this.c = c;
+    this.roundCount = 1;
+    this.score = new Score(this.c);
+    this.shots = new Shots(this.c);
+    this.ducks = new Ducks(this.c);
+  }
+
+  render() {
+    this.score.render();
+    this.shots.render();
+    this.ducks.render();
+
+    this.c.fillStyle = "black";
+    this.c.fillRect(48,384,47,21.5);
+    this.c.fillStyle = "#C5F652";
+    this.c.font = "16px Pixel Emulator";
+    this.c.fillText(`R=${this.roundCount}`, 89.5, 400);
+  }
+
+  renderPts(posX, posY) {
+    this.c.textAlign = "center"; 
+    this.c.fillStyle = "white";
+    this.c.font = "12px Pixel Emulator";
+    this.c.fillText(`${this.roundCount * 500}`, posX, posY);
+  }
+
+  update() {
+    this.ducks.update();
+  }
+}
+
+module.exports = Scoreboard;
+```
 
 ## Flight Algorithm
-
-
 
 ```javascript
   // duck.js
