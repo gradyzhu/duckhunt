@@ -16,7 +16,7 @@ Ducks appear one at a time and the player is granted 3 shots to shoot down the d
 
 ### Collision Detection
 
-<div align="center"><img src="https://media.giphy.com/media/3BjlOzXquubCj06Akd/giphy.gif"></div>
+<img src="https://media.giphy.com/media/3BjlOzXquubCj06Akd/giphy.gif">
 
 The crosshair's position is logged upon click and saved to the local variables.
 
