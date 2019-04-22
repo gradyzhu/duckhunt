@@ -20,25 +20,25 @@ The crosshair's position is logged upon click and saved to the local variables.
 
 ```javascript
 // cross.js
-    window.addEventListener('mousemove', event => {
-      var bounds = this.c.canvas.getBoundingClientRect();
-      this.posX = event.clientX - bounds.left;
-      this.posY = event.clientY - bounds.top;
-      this.update();
-    });
+window.addEventListener('mousemove', event => {
+  var bounds = this.c.canvas.getBoundingClientRect();
+  this.posX = event.clientX - bounds.left;
+  this.posY = event.clientY - bounds.top;
+  this.update();
+});
 ```
 A collision logged when the Cross position exists within the boundaries of the Duck sprite's dimensions within Canvas.
 
 ```javascript
 // duck.js
-  collision() {
-    return (
-      this.cross.clickPosX > this.posX + 6 && 
-      this.cross.clickPosX < this.posX + 58 &&
-      this.cross.clickPosY > this.posY + 6 &&
-      this.cross.clickPosY < this.posY + 58
-    );
-  }
+collision() {
+  return (
+    this.cross.clickPosX > this.posX + 6 && 
+    this.cross.clickPosX < this.posX + 58 &&
+    this.cross.clickPosY > this.posY + 6 &&
+    this.cross.clickPosY < this.posY + 58
+  );
+}
 ```
 
 ### Sprite Animations
@@ -103,36 +103,54 @@ module.exports = Scoreboard;
 
 ## Flight Algorithm
 
+I implemented a tick counter increments per `update()` call.
+
 ```javascript
 // duck.js
-
-  changeDir() {
-    let num = Math.random();
-    if ( num < 0.1667 ) {
-      this.duckImage.src = "images/fly_left.png";
-      return "left";
-    }
-    if ( num > 0.1667 && num < 0.3333 ) {
-      this.duckImage.src = "images/fly_right.png";
-      return "right";
-    }
-    if ( num > 0.3333 && num < 0.50 ) {
-      this.duckImage.src = "images/fly_top_left.png";
-      return "top-left";
-    }
-    if ( num > 0.50 && num < 0.667 ) {
-      this.duckImage.src = "images/fly_top_right.png";
-      return "top-right";
-    }
-    if ( num > 0.667 && num < 0.833 ) {
-      this.duckImage.src = "images/fly_top_left.png";
-      return "bot-left";
-    }
-    if ( num > 0.833 && num < 1 ) {
-      this.duckImage.src = "images/fly_top_right.png";
-      return "bot-right";
-    }
+updateDir() {
+  this.dirCount++; 
+  if (
+    this.dirCount > this.dirCountMax &&
+    this.direction !== "fall"
+    ) {
+      this.direction = this.changeDir();
+      this.dirCount = 0;
   }
+}
+```
+
+When the count exceeds the max count, the duck's direction randomizes based on the return value of the `changeDir()`.
+
+```javascript
+// duck.js
+  
+changeDir() {
+  let num = Math.random();
+  if ( num < 0.1667 ) {
+    this.duckImage.src = "images/fly_left.png";
+    return "left";
+  }
+  if ( num > 0.1667 && num < 0.3333 ) {
+    this.duckImage.src = "images/fly_right.png";
+    return "right";
+  }
+  if ( num > 0.3333 && num < 0.50 ) {
+    this.duckImage.src = "images/fly_top_left.png";
+    return "top-left";
+  }
+  if ( num > 0.50 && num < 0.667 ) {
+    this.duckImage.src = "images/fly_top_right.png";
+    return "top-right";
+  }
+  if ( num > 0.667 && num < 0.833 ) {
+    this.duckImage.src = "images/fly_top_left.png";
+    return "bot-left";
+  }
+  if ( num > 0.833 && num < 1 ) {
+    this.duckImage.src = "images/fly_top_right.png";
+    return "bot-right";
+  }
+}
 ```
 
 ## Future Features
