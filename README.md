@@ -16,10 +16,13 @@ Ducks appear one at a time and the player is granted 3 shots to shoot down the d
 
 ### Collision Detection
 
+<div align="center"><img src="https://media.giphy.com/media/3BjlOzXquubCj06Akd/giphy.gif"></div>
+
 The crosshair's position is logged upon click and saved to the local variables.
 
 ```javascript
 // cross.js
+
 window.addEventListener('mousemove', event => {
   var bounds = this.c.canvas.getBoundingClientRect();
   this.posX = event.clientX - bounds.left;
@@ -27,10 +30,11 @@ window.addEventListener('mousemove', event => {
   this.update();
 });
 ```
-A collision logged when the Cross position exists within the boundaries of the Duck sprite's dimensions within Canvas.
+A collision logged when the Cross's position exists within the boundaries of the Duck sprite's dimensions within Canvas.
 
 ```javascript
 // duck.js
+
 collision() {
   return (
     this.cross.clickPosX > this.posX + 6 && 
@@ -107,6 +111,7 @@ I implemented a tick counter increments per `update()` call.
 
 ```javascript
 // duck.js
+
 updateDir() {
   this.dirCount++; 
   if (
