@@ -284,7 +284,7 @@ class Duck {
   }
 
   isFlyAway() {
-    if (this.scoreboard.shots.count === 0) {
+    if (this.scoreboard.shots.count === 0 && !this.cross.hit) {
       this.duckImage.src = "images/fly_up.png";
       this.direction = "escape";
       this.flyAway = true;
@@ -294,12 +294,15 @@ class Duck {
   }
 
   collision() {
-    return (
+    if (
       this.cross.clickPosX > this.posX + 6 && 
       this.cross.clickPosX < this.posX + 58 &&
       this.cross.clickPosY > this.posY + 6 &&
       this.cross.clickPosY < this.posY + 58
-    );
+    ) {
+      return true;
+    }
+    return false;
   }
 
   isFallFin() {
