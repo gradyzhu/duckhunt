@@ -1,4 +1,6 @@
-### [Live Demo](https://gradyzhu.github.io/duckhunt/)
+# DuckHunt
+
+## [Live Demo](https://gradyzhu.github.io/duckhunt/)
 
 ## Overview
 
@@ -18,7 +20,7 @@ Ducks appear one at a time and the player is granted 3 shots to shoot down the d
 
 <img src="https://media.giphy.com/media/3BjlOzXquubCj06Akd/giphy.gif">
 
-The crosshair's position is logged upon click and saved to the local variables.
+The `Cross` position is logged upon click and saved to local variables.
 
 ```javascript
 // cross.js
@@ -30,18 +32,21 @@ window.addEventListener('mousemove', event => {
   this.update();
 });
 ```
-A collision logged when the Cross's position exists within the boundaries of the Duck sprite's dimensions within Canvas.
+A collision is logged when the Cross's position exists within the boundaries of the Duck sprite's dimensions within Canvas.
 
 ```javascript
 // duck.js
 
 collision() {
-  return (
+  if (
     this.cross.clickPosX > this.posX + 6 && 
     this.cross.clickPosX < this.posX + 58 &&
     this.cross.clickPosY > this.posY + 6 &&
     this.cross.clickPosY < this.posY + 58
-  );
+  ) {
+    return true;
+  }
+  return false;
 }
 ```
 
@@ -58,8 +63,49 @@ I quickly realized that determining the precise X and Y dimensions on a spritesh
 
 Using RequestAnimationFrame, I call the Game's loop function and recursively render and update Canvas.
 
-### Round Logic
+### Game Logic
 
+The game creates instances of each game object and passes each the object the Canvas context, or `c`.  Upon Game `render()`, objects render in order of environment, round, scoreboard, and cross to ensure proper canvas layering.
+
+```javascript
+// game.js
+  
+render() {
+  this.environment.render();
+
+  if (this.start) {
+    this.gameStartAni.render();
+    this.isNewRound = true;
+  }
+
+  if (!this.start && !this.gameOver) {
+    this.round.render();
+    this.environment.render();
+  }
+    
+  if (this.isNewRound) {
+    this.roundScreen.render();
+    if (this.roundScreen.aniFin) {
+      this.isNewRound = false;
+    }
+  }
+
+  this.scoreboard.render();
+  
+  if (this.gameOver) {this.gameOverScreen.render();}
+  this.cross.render();
+}
+```
+Gameover is triggered when there are fewer than 6 ducks hit per round and 10 ducks have spawned in a given round. 
+
+```javascript
+isGameOver() {
+  let ducksHit = this.scoreboard.ducks.arr.filter(el => el === 1).length;
+  if (ducksHit < 6 && this.round.waveCount === 10) {
+    this.gameOver = true;
+  } 
+}
+```
 ### Scoring System
 
 With Ducks, Waves, and Rounds constantly being created and destroyed based on game logic, I required a way to store and update class agnostic variables over the duration of a single Game instance.  The Scoreboard class tracks the players point total, round count, ducks shot per round, and shots per wave.
@@ -105,7 +151,7 @@ class Scoreboard {
 module.exports = Scoreboard;
 ```
 
-## Flight Algorithm
+### Flight Algorithm
 
 I implemented a tick counter increments per `update()` call.
 
@@ -124,7 +170,7 @@ updateDir() {
 }
 ```
 
-When the count exceeds the max count, the duck's direction randomizes based on the return value of the `changeDir()`.
+When the count exceeds the max count, the duck's direction randomizes based on the return value of `changeDir()`.
 
 ```javascript
 // duck.js
