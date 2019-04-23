@@ -20,7 +20,7 @@ Ducks appear one at a time and the player is granted 3 shots to shoot down the d
 
 <img src="https://media.giphy.com/media/3BjlOzXquubCj06Akd/giphy.gif">
 
-The `Cross` position is logged upon click and saved to local variables.
+Upon mousemove, the cross position is constantly being updated.
 
 ```javascript
 // cross.js
@@ -32,7 +32,19 @@ window.addEventListener('mousemove', event => {
   this.update();
 });
 ```
-A collision is logged when the Cross's position exists within the boundaries of the Duck sprite's dimensions within Canvas.
+Upon click, the current cross position is saved to click position variables.
+
+```javascript
+// cross.js
+
+window.addEventListener('click', () => {
+  if (this.hit || this.flyAway || !this.gameStart) return;
+  if (this.shots.count > 0) this.shots.count--;
+  this.clickPosX = this.posX;
+  this.clickPosY = this.posY;
+});
+```
+A collision is logged when the click position exists within the boundaries of the Duck sprite's dimensions within Canvas.
 
 ```javascript
 // duck.js
