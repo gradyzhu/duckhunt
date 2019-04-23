@@ -10,6 +10,7 @@ class Cross {
     this.hit = false;
     this.falling = false;
     this.flyAway = false;
+    this.gameStart = false;
 
     window.addEventListener('mousemove', event => {
       var bounds = this.c.canvas.getBoundingClientRect();
@@ -19,7 +20,7 @@ class Cross {
     });
 
     window.addEventListener('click', () => {
-      if (this.hit || this.flyAway) return;
+      if (this.hit || this.flyAway || !this.gameStart) return;
       if (this.shots.count > 0) {
         this.shots.count--;
       }

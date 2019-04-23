@@ -93,6 +93,7 @@ class Game {
   isStart() {
     if (this.gameStartAni.jumpEndFin) {
       this.start = false;
+      this.cross.gameStart = true;
     }
   }
   
